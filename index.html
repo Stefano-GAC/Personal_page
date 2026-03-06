@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- Configuración básica del documento -->
+    <meta charset="UTF-8">
+    <!-- Permite diseño responsive -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stefano Campos | Desarrollador Frontend</title>
+    <!-- libreria de iconos -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- Enlace a la hoja de estilos -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Barra de navegación principal -->
+<nav class="navbar">
+
+    <!-- Nombre o logo -->
+    <div class="logo">
+        SGAC
+    </div>
+
+    <!-- Enlaces de navegación a secciones -->
+    <ul class="nav-links">
+        <li><a href="#sobre-mi">Sobre mí</a></li>
+        <li><a href="#habilidades">Habilidades</a></li>
+        <li><a href="#proyectos">Proyectos</a></li>
+        <li><a href="https://www.linkedin.com/in/stefano-gonzalo-alderete-campos-b045373b5/" target="_blank" class="linkedin-btn">LinkedIn</a></li>
+    </ul>
+
+</nav>
+
+    <!-- Sección principal de presentación -->
+<header class="hero">
+    <div class="hero-content">
+
+        <h1>Stefano Alderete Campos</h1>
+        <!-- texto que se escribirá con javascript -->
+        <h2 id="typing"></h2>
+
+        <p>
+            Desarrollador web en formación especializado en la creación de 
+            interfaces modernas, aplicaciones dinámicas y experiencias web funcionales.
+        </p>
+
+        <!-- Botones principales -->
+        <div class="hero-buttons">
+            <a href="#proyectos" class="btn">Ver proyectos</a>
+            <a href="https://github.com/Stefano-GAC" target="_blank" class="btn btn-secondary">
+                GitHub
+            </a>
+        </div>
+
+    </div>
+</header>
+
+    <!-- Información personal y profesional -->
+    <section id="sobre-mi" class="section hidden">
+        <h2>Sobre mí</h2>
+        <p>
+            Soy estudiante de Desarrollo de Aplicaciones Web con interés en el desarrollo frontend.
+            Me gusta crear interfaces limpias, funcionales y bien estructuradas utilizando tecnologías modernas como HTML, CSS, JavaScript y React.
+
+            He trabajado en proyectos personales donde desarrollo aplicaciones CRUD, consumo APIs y construyo páginas web interactivas.
+            Actualmente continúo aprendiendo y mejorando mis habilidades en desarrollo web. Estoy emocionado por seguir creciendo en este campo y contribuir con proyectos innovadores.
+        </p>
+    </section>
+
+    <!-- Tecnologías y herramientas -->
+    <section id="habilidades" class="section hidden">
+        <h2>Habilidades Técnicas</h2>
+
+        <div class="skills-container">
+            <div class="skill-card">
+                <h3>Frontend</h3>
+                <ul>
+                    <li><i class="fa-brands fa-html5"></i> HTML5</li>
+                    <li><i class="fa-brands fa-css3-alt"></i> CSS</li>
+                    <li><i class="fa-brands fa-js"></i> JavaScript</li>
+                    <li><i class="fa-brands fa-react"></i> React</li>
+                </ul>
+            </div>
+
+            <div class="skill-card">
+                <h3>Backend</h3>
+                <ul>
+                    <li><i class="fa-brands fa-php"></i> PHP</li>
+                    <li><i class="fa-brands fa-java"></i> Java</li>
+                </ul>
+            </div>
+
+            <div class="skill-card">
+                <h3>Bases de Datos</h3>
+                <ul>
+                    <li><i class="fa-solid fa-database"></i> SQL</li>
+                    <li><i class="fa-solid fa-database"></i> MySQL</li>
+                </ul>
+            </div>
+
+            <div class="skill-card">
+                <h3>Herramientas</h3>
+                <ul>
+                    <li><i class="fa-brands fa-git"></i> Git</li>
+                    <li><i class="fa-brands fa-github"></i> GitHub</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Proyectos realizados -->
+<section id="proyectos" class="section hidden">
+    <h2>Proyectos</h2>
+    <p>
+            He desarrollado aplicaciones CRUD, integración de APIs y proyectos web dinámicos.
+            Aqui puedes ver algunos proyectos realizados mientras cruzaba el curso.
+        </p>
+        <br>
+
+    <div class="projects-container">
+
+        <!-- Proyecto 1 -->
+        <div class="project-card">
+            <h3>PONG GALÁCTICO</h3>
+            <p>Juego web desarrollado con JavaScript.</p>
+            <a href="https://stefano-gac.github.io/Pong_Gal-ctico/" class="project-link" target="_blank">Ver proyecto</a>
+        </div>
+
+        <!-- Proyecto 2 -->
+        <div class="project-card">
+            <h3>API POKEMON (Grupal)</h3>
+            <p>API desarrollada para gestionar datos mediante peticiones HTTP.</p>
+            <a href="https://stefano-gac.github.io/ApiPokemon/" class="project-link" target="_blank">Ver proyecto</a>
+        </div>
+
+        <!-- Proyecto 3 -->
+        <div class="project-card">
+            <h3>Páginad de autos</h3>
+            <p>Página web de estilo moderno dedicada a la presentación de coches deportivos</p>
+            <a href="https://stefano-gac.github.io/NeonDrive/index.html" class="project-link" target="_blank">Ver proyecto</a>
+        </div>
+
+        <!-- Proyecto 4 -->
+        <div class="project-card">
+            <h3>Página (copia) de Netflix</h3>
+            <p>Página web  parecido a la de netflix</p>
+            <a href="https://stefano-gac.github.io/Netflix_Bamba/" class="project-link" target="_blank">Ver proyecto</a>
+        </div>
+    </div>
+
+    <!-- Enlace a GitHub -->
+    <a href="https://github.com/Stefano-GAC" target="_blank" class="btn">
+        Ver más proyectos en GitHub
+    </a>
+
+</section>
+<button id="backToTop">↑</button>
+    <!-- Información final -->
+    <footer>
+        <p>© 2026 Stefano Alderete - Desarrollador Frontend</p>
+    </footer>
+    <script src="script.js"></script>
+    
+</body>
+</html>
