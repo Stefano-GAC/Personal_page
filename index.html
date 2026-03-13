@@ -1,166 +1,213 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-    <!-- Configuración básica del documento -->
-    <meta charset="UTF-8">
-    <!-- Permite diseño responsive -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stefano Campos | Desarrollador Frontend</title>
-    <!-- libreria de iconos -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stefano Campos | Desarrollador Web</title>
 
-    <!-- Enlace a la hoja de estilos -->
-    <link rel="stylesheet" href="styles.css">
+  <!-- Bootstrap CSS (v5) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-***" crossorigin="anonymous">
+
+  <!-- Font Awesome para iconos -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- Animate.css para animaciones -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
+  <!-- Estilos personalizados -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Eliminamos styles.css; todo se hace con utilidades de Bootstrap -->
+
 </head>
-<body>
 
-    <!-- Barra de navegación principal -->
-<nav class="navbar">
+  <body class="bg-light text-dark">
 
-    <!-- Nombre o logo -->
-    <div class="logo">
-        SGAC
-    </div>
-
-    <!-- Enlaces de navegación a secciones -->
-    <ul class="nav-links">
-        <li><a href="#sobre-mi">Sobre mí</a></li>
-        <li><a href="#habilidades">Habilidades</a></li>
-        <li><a href="#proyectos">Proyectos</a></li>
-        <li><a href="https://www.linkedin.com/in/stefano-gonzalo-alderete-campos-b045373b5/" target="_blank" class="linkedin-btn">LinkedIn</a></li>
-    </ul>
-
-</nav>
-
-    <!-- Sección principal de presentación -->
-<header class="hero">
-    <div class="hero-content">
-
-        <h1>Stefano Alderete Campos</h1>
-        <!-- texto que se escribirá con javascript -->
-        <h2 id="typing"></h2>
-
-        <p>
-            Desarrollador web en formación especializado en la creación de 
-            interfaces modernas, aplicaciones dinámicas y experiencias web funcionales.
-        </p>
-
-        <!-- Botones principales -->
-        <div class="hero-buttons">
-            <a href="#proyectos" class="btn">Ver proyectos</a>
-            <a href="https://github.com/Stefano-GAC" target="_blank" class="btn btn-secondary">
-                GitHub
-            </a>
+    <!-- NAVBAR BOOTSTRAP -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow">
+      <div class="container-fluid">
+        <a class="navbar-brand d-flex align-items-center" href="#">
+          <span class="fs-5 fw-bold me-2 text-primary">SGAC</span>
+          <img src="img/perfil.jpeg" alt="Foto de Stefano Campos" class="rounded-circle cursor-pointer" width="38" height="38" data-bs-toggle="modal" data-bs-target="#profileModal">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a class="nav-link" href="#sobre-mi">Sobre mí</a></li>
+            <li class="nav-item"><a class="nav-link" href="#habilidades">Habilidades</a></li>
+            <li class="nav-item"><a class="nav-link" href="#proyectos">Proyectos</a></li>
+            <li class="nav-item">
+              <a class="nav-link btn btn-outline-primary ms-2" href="https://www.linkedin.com/in/stefano-gonzalo-alderete-campos-b045373b5/" target="_blank">
+                LinkedIn
+              </a>
+            </li>
+          </ul>
         </div>
+      </div>
+    </nav>
 
-    </div>
-</header>
+    <!-- HERO SECTION (Minimalista pero elegante) -->
+    <header class="d-flex align-items-center justify-content-center text-center hero-gradient" style="min-height:60vh; padding-top: 80px;">
+      <div class="container">
+        <div class="hero-content">
+          <div class="mb-3">
+            <img src="img/perfil.jpeg" alt="Foto de Stefano Campos" class="rounded-circle shadow-lg mb-3 cursor-pointer" width="100" height="100" data-bs-toggle="modal" data-bs-target="#profileModal" style="border: 4px solid var(--primary-color); transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+          </div>
+          <h1 class="display-5 fw-bold text-primary mb-2">Stefano Alderete Campos</h1>
+          <h2 id="typing" class="fs-4 text-secondary mb-4"></h2>
+          <div class="d-flex justify-content-center gap-2 flex-wrap">
+            <a href="#proyectos" class="btn btn-primary btn-sm">Ver proyectos <i class="fas fa-arrow-right ms-1"></i></a>
+            <a href="https://github.com/Stefano-GAC" target="_blank" class="btn btn-outline-primary btn-sm">GitHub</a>
+            <a href="https://www.linkedin.com/in/stefano-gonzalo-alderete-campos-b045373b5/" target="_blank" class="btn btn-outline-primary btn-sm">LinkedIn</a>
+          </div>
+        </div>
+      </div>
+    </header>
 
-    <!-- Información personal y profesional -->
-    <section id="sobre-mi" class="section hidden">
-        <h2>Sobre mí</h2>
-        <p>
-            Soy estudiante de Desarrollo de Aplicaciones Web con interés en el desarrollo frontend.
-            Me gusta crear interfaces limpias, funcionales y bien estructuradas utilizando tecnologías modernas como HTML, CSS, JavaScript y React.
-
-            He trabajado en proyectos personales donde desarrollo aplicaciones CRUD, consumo APIs y construyo páginas web interactivas.
-            Actualmente continúo aprendiendo y mejorando mis habilidades en desarrollo web. Estoy emocionado por seguir creciendo en este campo y contribuir con proyectos innovadores.
-        </p>
+    <!-- SOBRE MÍ -->
+    <section id="sobre-mi" class="py-4 border-bottom">
+      <div class="container">
+        <h2 class="mb-3 text-primary"><i class="fas fa-user-circle me-2"></i>Sobre mí</h2>
+        <div style="padding-left: 10px; border-left: 4px solid var(--accent-color);">
+          <p class="mb-0" style="line-height: 1.6;">
+            Soluciones web reales mediante código sólido. Desarrollo aplicaciones dinámicas con React, PHP y Java, enfocándome en resolver cada requerimiento técnico sin complicaciones.
+          </p>
+        </div>
+      </div>
     </section>
 
-    <!-- Tecnologías y herramientas -->
-    <section id="habilidades" class="section hidden">
-        <h2>Habilidades Técnicas</h2>
-
-        <div class="skills-container">
-            <div class="skill-card">
-                <h3>Frontend</h3>
-                <ul>
-                    <li><i class="fa-brands fa-html5"></i> HTML5</li>
-                    <li><i class="fa-brands fa-css3-alt"></i> CSS</li>
-                    <li><i class="fa-brands fa-js"></i> JavaScript</li>
-                    <li><i class="fa-brands fa-react"></i> React</li>
-                </ul>
+    <!-- HABILIDADES -->
+    <section id="habilidades" class="py-4 bg-light">
+      <div class="container">
+        <h2 class="mb-4 text-primary"><i class="fas fa-code me-2"></i>Habilidades</h2>
+        <div class="row g-3">
+          <div class="col-md-6">
+            <div class="skill-item">
+              <p class="skill-title mb-2"><i class="fas fa-terminal text-primary"></i>Frontend</p>
+              <p class="mb-0 small">HTML, CSS, JavaScript, React, Bootstrap</p>
             </div>
-
-            <div class="skill-card">
-                <h3>Backend</h3>
-                <ul>
-                    <li><i class="fa-brands fa-php"></i> PHP</li>
-                    <li><i class="fa-brands fa-java"></i> Java</li>
-                </ul>
+          </div>
+          <div class="col-md-6">
+            <div class="skill-item">
+              <p class="skill-title mb-2"><i class="fas fa-database text-primary"></i>Backend</p>
+              <p class="mb-0 small">PHP, Java, SQL, MySQL</p>
             </div>
-
-            <div class="skill-card">
-                <h3>Bases de Datos</h3>
-                <ul>
-                    <li><i class="fa-solid fa-database"></i> SQL</li>
-                    <li><i class="fa-solid fa-database"></i> MySQL</li>
-                </ul>
+          </div>
+          <div class="col-md-6">
+            <div class="skill-item">
+              <p class="skill-title mb-2"><i class="fas fa-wrench text-primary"></i>Herramientas</p>
+              <p class="mb-0 small">Git, GitHub, VS Code</p>
             </div>
-
-            <div class="skill-card">
-                <h3>Herramientas</h3>
-                <ul>
-                    <li><i class="fa-brands fa-git"></i> Git</li>
-                    <li><i class="fa-brands fa-github"></i> GitHub</li>
-                </ul>
+          </div>
+          <div class="col-md-6">
+            <div class="skill-item">
+              <p class="skill-title mb-2"><i class="fas fa-star text-primary"></i>Especialidades</p>
+              <p class="mb-0 small">API REST, CRUD, Responsive Design</p>
             </div>
+          </div>
         </div>
+      </div>
     </section>
 
-    <!-- Proyectos realizados -->
-<section id="proyectos" class="section hidden">
-    <h2>Proyectos</h2>
-    <p>
-            He desarrollado aplicaciones CRUD, integración de APIs y proyectos web dinámicos.
-            Aqui puedes ver algunos proyectos realizados mientras cruzaba el curso.
-        </p>
-        <br>
-
-    <div class="projects-container">
-
-        <!-- Proyecto 1 -->
-        <div class="project-card">
-            <h3>PONG GALÁCTICO</h3>
-            <p>Juego web desarrollado con JavaScript.</p>
-            <a href="https://stefano-gac.github.io/Pong_Gal-ctico/" class="project-link" target="_blank">Ver proyecto</a>
+    <!-- PROYECTOS -->
+    <section id="proyectos" class="py-4 bg-white">
+      <div class="container">
+        <h2 class="mb-4 text-primary"><i class="fas fa-briefcase me-2"></i>Proyectos Destacados</h2>
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+          <div class="col">
+            <div class="card h-100 border-0 project-card">
+              <div class="card-body p-4">
+                <div class="d-flex align-items-start justify-content-between mb-3">
+                  <h5 class="card-title text-primary mb-0"><i class="fas fa-gamepad me-2"></i>Pong Galáctico</h5>
+                  <span class="badge bg-primary text-white">JavaScript</span>
+                </div>
+                <p class="card-text text-muted small mb-3">Juego interactivo con JavaScript y HTML5 Canvas con físicas realistas y efectos visuales.</p>
+                <a href="https://stefano-gac.github.io/Pong_Gal-ctico/" target="_blank" class="btn btn-primary btn-sm">Ver proyecto <i class="fas fa-arrow-right ms-1"></i></a>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card h-100 border-0 project-card">
+              <div class="card-body p-4">
+                <div class="d-flex align-items-start justify-content-between mb-3">
+                  <h5 class="card-title text-primary mb-0"><i class="fas fa-play-circle me-2"></i>Netflix Clone</h5>
+                  <span class="badge bg-danger text-white">React</span>
+                </div>
+                <p class="card-text text-muted small mb-3">Interfaz de Netflix desarrollada con React con carruseles dinámicos y diseño responsive.</p>
+                <a href="https://stefano-gac.github.io/Netflix_Bamba/" target="_blank" class="btn btn-primary btn-sm">Ver proyecto <i class="fas fa-arrow-right ms-1"></i></a>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card h-100 border-0 project-card">
+              <div class="card-body p-4">
+                <div class="d-flex align-items-start justify-content-between mb-3">
+                  <h5 class="card-title text-primary mb-0"><i class="fas fa-lightning me-2"></i>NeonDrive</h5>
+                  <span class="badge bg-warning text-dark">UI/UX</span>
+                </div>
+                <p class="card-text text-muted small mb-3">Landing page moderna con CSS animaciones avanzadas y diseño neon impactante.</p>
+                <a href="https://stefano-gac.github.io/NeonDrive/index.html" target="_blank" class="btn btn-primary btn-sm">Ver proyecto <i class="fas fa-arrow-right ms-1"></i></a>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card h-100 border-0 project-card">
+              <div class="card-body p-4">
+                <div class="d-flex align-items-start justify-content-between mb-3">
+                  <h5 class="card-title text-primary mb-0"><i class="fas fa-server me-2"></i>API Pokémon</h5>
+                  <span class="badge bg-secondary text-white">API REST</span>
+                </div>
+                <p class="card-text text-muted small mb-3">API completa para gestión de datos Pokémon con endpoints RESTful y documentación.</p>
+                <a href="https://stefano-gac.github.io/ApiPokemon/" target="_blank" class="btn btn-primary btn-sm">Ver proyecto <i class="fas fa-arrow-right ms-1"></i></a>
+              </div>
+            </div>
+          </div>
         </div>
-
-        <!-- Proyecto 2 -->
-        <div class="project-card">
-            <h3>API POKEMON (Grupal)</h3>
-            <p>API desarrollada para gestionar datos mediante peticiones HTTP.</p>
-            <a href="https://stefano-gac.github.io/ApiPokemon/" class="project-link" target="_blank">Ver proyecto</a>
+        <div class="mt-5 text-center">
+          <a href="https://github.com/Stefano-GAC" target="_blank" class="btn btn-primary btn-lg">
+            <i class="fab fa-github me-2"></i>Ver más en GitHub
+          </a>
         </div>
+      </div>
+    </section>
 
-        <!-- Proyecto 3 -->
-        <div class="project-card">
-            <h3>Páginad de autos</h3>
-            <p>Página web de estilo moderno dedicada a la presentación de coches deportivos</p>
-            <a href="https://stefano-gac.github.io/NeonDrive/index.html" class="project-link" target="_blank">Ver proyecto</a>
+    <!-- BOTÓN BACK TO TOP -->
+    <button id="backToTop" class="btn btn-primary btn-lg rounded-circle shadow" style="display:none; position:fixed; bottom:30px; right:30px; width:50px; height:50px;">
+      <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- FOOTER -->
+    <footer class="py-4 border-top" style="background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);">
+      <div class="container text-center">
+        <p class="mb-2 text-muted">© 2026 Stefano Alderete | Desarrollador Web</p>
+        <div class="d-flex justify-content-center gap-3">
+          <a href="https://github.com/Stefano-GAC" class="text-primary text-decoration-none" title="GitHub"><i class="fab fa-github fa-lg"></i></a>
+          <a href="https://www.linkedin.com/in/stefano-gonzalo-alderete-campos-b045373b5/" class="text-primary text-decoration-none" title="LinkedIn"><i class="fab fa-linkedin fa-lg"></i></a>
         </div>
-
-        <!-- Proyecto 4 -->
-        <div class="project-card">
-            <h3>Página (copia) de Netflix</h3>
-            <p>Página web  parecido a la de netflix</p>
-            <a href="https://stefano-gac.github.io/Netflix_Bamba/" class="project-link" target="_blank">Ver proyecto</a>
-        </div>
-    </div>
-
-    <!-- Enlace a GitHub -->
-    <a href="https://github.com/Stefano-GAC" target="_blank" class="btn">
-        Ver más proyectos en GitHub
-    </a>
-
-</section>
-<button id="backToTop">↑</button>
-    <!-- Información final -->
-    <footer>
-        <p>© 2026 Stefano Alderete - Desarrollador Frontend</p>
+      </div>
     </footer>
+
+    <!-- Modal para foto de perfil -->
+    <div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content bg-transparent border-0">
+          <div class="modal-body text-center p-0">
+            <img src="img/perfil.jpeg" alt="Foto de Stefano Campos" class="img-fluid shadow-lg animate__animated animate__zoomIn" style="max-width:400px; border: 6px solid var(--primary-color);">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap JS bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-***" crossorigin="anonymous"></script>
+
+    <!-- Script propio -->
     <script src="script.js"></script>
-    
-</body>
+
+  </body>
+
 </html>

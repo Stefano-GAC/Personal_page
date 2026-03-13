@@ -36,7 +36,7 @@ backToTop.onclick = function () {
 };
 
 // texto que se escribirá
-const text = "Frontend Developer";
+const text = "Desarrollador Web Full Stack";
 
 // elemento donde se mostrará
 const typingElement = document.getElementById("typing");
