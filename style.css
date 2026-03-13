@@ -127,7 +127,15 @@
 
 /* Gradiente en hero */
 .hero-gradient {
-  background: linear-gradient(135deg, var(--bg-secondary) 0%, #e0e7ff 50%, #f0f9ff 100%);
+  background: linear-gradient(135deg, #1e40af, #3b82f6, #60a5fa, #1e40af);
+  background-size: 400% 400%;
+  animation: gradientMove 5s ease infinite;
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 /* Card de proyecto mejorada */
@@ -179,7 +187,42 @@
 body {
   background-color: var(--bg-light) !important;
   color: var(--text-dark) !important;
-  font-family: 'Inter', 'Segoe UI', sans-serif;
+  font-family: 'Montserrat', 'Inter', 'Segoe UI', sans-serif;
 }
 
 section { scroll-margin-top: 80px; }
+
+/* Estilos para el modal de perfil */
+.modal-content {
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.0005) !important;
+  border-radius: 20px !important;
+}
+
+.profile-modal-bg {
+  animation: pulse-bg 3s ease-in-out infinite;
+}
+
+@keyframes pulse-bg {
+  0%, 100% { opacity: 0.1; }
+  50% { opacity: 0.2; }
+}
+
+/* Estilos mejorados para la imagen del modal */
+.profile-modal-img {
+  border: none;
+  box-shadow: 0 0 20px rgba(30, 64, 175, 0.5), 0 20px 40px rgba(30, 64, 175, 0.3);
+  transition: all 0.5s ease-in-out;
+  animation: glowPulse 3s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(30, 64, 175, 0.5), 0 20px 40px rgba(30, 64, 175, 0.3);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(30, 64, 175, 0.7), 0 20px 40px rgba(30, 64, 175, 0.3);
+    transform: scale(1.02);
+  }
+}

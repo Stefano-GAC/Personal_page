@@ -36,7 +36,7 @@ backToTop.onclick = function () {
 };
 
 // texto que se escribirá
-const text = "Desarrollador Web Full Stack";
+const text = "Desarrollador de aplicaciones web";
 
 // elemento donde se mostrará
 const typingElement = document.getElementById("typing");
@@ -46,12 +46,18 @@ let index = 0;
 // función que escribe letra por letra
 function typeEffect() {
 
-    if(index < text.length){
+    if (index < text.length) {
         typingElement.textContent += text.charAt(index);
         index++;
         setTimeout(typeEffect, 80);
+    } else {
+        // Espera un momento y reinicia
+        setTimeout(() => {
+            typingElement.textContent = "";
+            index = 0;
+            typeEffect();
+        }, 1000); // pausa de 1 segundo antes de reiniciar
     }
-
 }
 
 // inicia el efecto cuando carga la página
