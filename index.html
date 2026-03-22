@@ -40,13 +40,22 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto">
-            <li class="nav-item"><a class="nav-link" href="#sobre-mi">Sobre mí</a></li>
-            <li class="nav-item"><a class="nav-link" href="#habilidades">Habilidades</a></li>
-            <li class="nav-item"><a class="nav-link" href="#proyectos">Proyectos</a></li>
+            <li class="nav-item"><a class="nav-link" href="#sobre-mi"><span id="navAbout">Sobre mí</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="#proyectos"><span id="navProjects">Proyectos</span></a></li>
             <li class="nav-item">
               <a class="nav-link btn btn-outline-primary ms-2" href="https://www.linkedin.com/in/stefano-gonzalo-alderete-campos-b045373b5/" target="_blank">
                 LinkedIn
               </a>
+            </li>
+            <li class="nav-item d-flex align-items-center ms-lg-3 mt-2 mt-lg-0">
+              <div class="language-switch" role="group" aria-label="Selector de idioma">
+                <button id="langEs" type="button" class="lang-btn active" aria-label="Cambiar a español" title="Español">
+                  <span class="flag" aria-hidden="true">🇪🇸</span>
+                </button>
+                <button id="langEn" type="button" class="lang-btn" aria-label="Switch to English" title="English">
+                  <span class="flag" aria-hidden="true">🇬🇧</span>
+                </button>
+              </div>
             </li>
           </ul>
         </div>
@@ -73,44 +82,11 @@
     <!-- SOBRE MÍ -->
     <section id="sobre-mi" class="py-4 border-bottom">
       <div class="container">
-        <h2 class="mb-3 text-primary"><i class="fas fa-user-circle me-2"></i>Sobre mí</h2>
+        <h2 class="mb-3 text-primary"><i class="fas fa-user-circle me-2"></i><span id="aboutTitle">Sobre mí</span></h2>
         <div style="padding-left: 10px; border-left: 4px solid var(--accent-color);">
-          <p class="mb-0" style="line-height: 1.6;">
+          <p id="aboutText" class="mb-0" style="line-height: 1.6;">
             Soluciones web reales mediante código sólido. Desarrollo aplicaciones dinámicas con React, PHP y Java, enfocándome en resolver cada requerimiento técnico sin complicaciones.
           </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- HABILIDADES -->
-    <section id="habilidades" class="py-4 bg-light">
-      <div class="container">
-        <h2 class="mb-4 text-primary"><i class="fas fa-code me-2"></i>Habilidades</h2>
-        <div class="row g-3">
-          <div class="col-md-6">
-            <div class="skill-item">
-              <p class="skill-title mb-2"><i class="fas fa-terminal text-primary"></i>Frontend</p>
-              <p class="mb-0 small">HTML, CSS, JavaScript, React, Bootstrap</p>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="skill-item">
-              <p class="skill-title mb-2"><i class="fas fa-database text-primary"></i>Backend</p>
-              <p class="mb-0 small">PHP, Java, SQL, MySQL</p>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="skill-item">
-              <p class="skill-title mb-2"><i class="fas fa-wrench text-primary"></i>Herramientas</p>
-              <p class="mb-0 small">Git, GitHub, VS Code</p>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="skill-item">
-              <p class="skill-title mb-2"><i class="fas fa-star text-primary"></i>Especialidades</p>
-              <p class="mb-0 small">API REST, CRUD, Responsive Design</p>
-            </div>
-          </div>
         </div>
       </div>
     </section>
@@ -118,60 +94,145 @@
     <!-- PROYECTOS -->
     <section id="proyectos" class="py-4 bg-white">
       <div class="container">
-        <h2 class="mb-4 text-primary"><i class="fas fa-briefcase me-2"></i>Proyectos Destacados</h2>
+        <h2 class="mb-4 text-primary"><i class="fas fa-briefcase me-2"></i><span id="projectsTitle">Proyectos Destacados</span></h2>
         <div class="row row-cols-1 row-cols-md-2 g-4">
+
           <div class="col">
-            <div class="card h-100 border-0 project-card">
-              <div class="card-body p-4">
-                <div class="d-flex align-items-start justify-content-between mb-3">
-                  <h5 class="card-title text-primary mb-0"><i class="fas fa-gamepad me-2"></i>Pong Galáctico</h5>
-                  <span class="badge bg-primary text-white">JavaScript</span>
+            <article class="flip-card project-flip">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <div class="flip-front-header">
+                    <h5 class="mb-0"><i class="fas fa-gamepad me-2"></i>Pong Galáctico</h5>
+                    <span class="badge bg-primary">JavaScript</span>
+                  </div>
+                  <p id="projectDesc1" class="flip-front-desc">Juego interactivo con JavaScript y HTML5 Canvas con físicas realistas y efectos visuales.</p>
+                  <button class="btn btn-outline-primary btn-sm preview-btn" type="button">
+                    <i class="fas fa-eye me-1"></i><span class="preview-label">Preview</span>
+                  </button>
                 </div>
-                <p class="card-text text-muted small mb-3">Juego interactivo con JavaScript y HTML5 Canvas con físicas realistas y efectos visuales.</p>
-                <a href="https://stefano-gac.github.io/Pong_Gal-ctico/" target="_blank" class="btn btn-primary btn-sm">Ver proyecto <i class="fas fa-arrow-right ms-1"></i></a>
+                <div class="flip-card-back">
+                  <div class="iframe-bar">
+                    <span class="iframe-domain"><i class="fas fa-circle" style="color:#4ade80;font-size:.45rem;"></i> pong-galactico</span>
+                    <div class="d-flex gap-2 align-items-center">
+                      <button type="button" class="btn btn-sm btn-outline-light back-btn">
+                        <i class="fas fa-rotate-left me-1"></i><span class="back-label">Volver</span>
+                      </button>
+                      <a href="https://stefano-gac.github.io/Pong_Gal-ctico/" target="_blank" rel="noopener noreferrer" class="btn btn-light btn-sm">
+                        <span class="project-btn-text">Ver completo</span> <i class="fas fa-arrow-right ms-1"></i>
+                      </a>
+                    </div>
+                  </div>
+                  <div class="iframe-wrap">
+                    <iframe data-src="https://stefano-gac.github.io/Pong_Gal-ctico/" class="project-iframe" title="Pong Galáctico preview" sandbox="allow-scripts allow-same-origin"></iframe>
+                  </div>
+                </div>
               </div>
-            </div>
+            </article>
           </div>
+
           <div class="col">
-            <div class="card h-100 border-0 project-card">
-              <div class="card-body p-4">
-                <div class="d-flex align-items-start justify-content-between mb-3">
-                  <h5 class="card-title text-primary mb-0"><i class="fas fa-play-circle me-2"></i>Netflix Clone</h5>
-                  <span class="badge bg-danger text-white">React</span>
+            <article class="flip-card project-flip">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <div class="flip-front-header">
+                    <h5 class="mb-0"><i class="fas fa-play-circle me-2"></i>Netflix Clone</h5>
+                    <span class="badge bg-danger">React</span>
+                  </div>
+                  <p id="projectDesc2" class="flip-front-desc">Interfaz de Netflix desarrollada con React con carruseles dinámicos y diseño responsive.</p>
+                  <button class="btn btn-outline-primary btn-sm preview-btn" type="button">
+                    <i class="fas fa-eye me-1"></i><span class="preview-label">Preview</span>
+                  </button>
                 </div>
-                <p class="card-text text-muted small mb-3">Interfaz de Netflix desarrollada con React con carruseles dinámicos y diseño responsive.</p>
-                <a href="https://stefano-gac.github.io/Netflix_Bamba/" target="_blank" class="btn btn-primary btn-sm">Ver proyecto <i class="fas fa-arrow-right ms-1"></i></a>
+                <div class="flip-card-back">
+                  <div class="iframe-bar">
+                    <span class="iframe-domain"><i class="fas fa-circle" style="color:#4ade80;font-size:.45rem;"></i> netflix-clone</span>
+                    <div class="d-flex gap-2 align-items-center">
+                      <button type="button" class="btn btn-sm btn-outline-light back-btn">
+                        <i class="fas fa-rotate-left me-1"></i><span class="back-label">Volver</span>
+                      </button>
+                      <a href="https://stefano-gac.github.io/Netflix_Bamba/" target="_blank" rel="noopener noreferrer" class="btn btn-light btn-sm">
+                        <span class="project-btn-text">Ver completo</span> <i class="fas fa-arrow-right ms-1"></i>
+                      </a>
+                    </div>
+                  </div>
+                  <div class="iframe-wrap">
+                    <iframe data-src="https://stefano-gac.github.io/Netflix_Bamba/" class="project-iframe" title="Netflix Clone preview" sandbox="allow-scripts allow-same-origin"></iframe>
+                  </div>
+                </div>
               </div>
-            </div>
+            </article>
           </div>
+
           <div class="col">
-            <div class="card h-100 border-0 project-card">
-              <div class="card-body p-4">
-                <div class="d-flex align-items-start justify-content-between mb-3">
-                  <h5 class="card-title text-primary mb-0"><i class="fas fa-lightning me-2"></i>NeonDrive</h5>
-                  <span class="badge bg-warning text-dark">UI/UX</span>
+            <article class="flip-card project-flip">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <div class="flip-front-header">
+                    <h5 class="mb-0"><i class="fas fa-bolt me-2"></i>NeonDrive</h5>
+                    <span class="badge bg-warning text-dark">UI/UX</span>
+                  </div>
+                  <p id="projectDesc3" class="flip-front-desc">Landing page moderna con CSS animaciones avanzadas y diseño neon impactante.</p>
+                  <button class="btn btn-outline-primary btn-sm preview-btn" type="button">
+                    <i class="fas fa-eye me-1"></i><span class="preview-label">Preview</span>
+                  </button>
                 </div>
-                <p class="card-text text-muted small mb-3">Landing page moderna con CSS animaciones avanzadas y diseño neon impactante.</p>
-                <a href="https://stefano-gac.github.io/NeonDrive/index.html" target="_blank" class="btn btn-primary btn-sm">Ver proyecto <i class="fas fa-arrow-right ms-1"></i></a>
+                <div class="flip-card-back">
+                  <div class="iframe-bar">
+                    <span class="iframe-domain"><i class="fas fa-circle" style="color:#4ade80;font-size:.45rem;"></i> neondrive</span>
+                    <div class="d-flex gap-2 align-items-center">
+                      <button type="button" class="btn btn-sm btn-outline-light back-btn">
+                        <i class="fas fa-rotate-left me-1"></i><span class="back-label">Volver</span>
+                      </button>
+                      <a href="https://stefano-gac.github.io/NeonDrive/index.html" target="_blank" rel="noopener noreferrer" class="btn btn-light btn-sm">
+                        <span class="project-btn-text">Ver completo</span> <i class="fas fa-arrow-right ms-1"></i>
+                      </a>
+                    </div>
+                  </div>
+                  <div class="iframe-wrap">
+                    <iframe data-src="https://stefano-gac.github.io/NeonDrive/index.html" class="project-iframe" title="NeonDrive preview" sandbox="allow-scripts allow-same-origin"></iframe>
+                  </div>
+                </div>
               </div>
-            </div>
+            </article>
           </div>
+
           <div class="col">
-            <div class="card h-100 border-0 project-card">
-              <div class="card-body p-4">
-                <div class="d-flex align-items-start justify-content-between mb-3">
-                  <h5 class="card-title text-primary mb-0"><i class="fas fa-server me-2"></i>API Pokémon</h5>
-                  <span class="badge bg-secondary text-white">API REST</span>
+            <article class="flip-card project-flip">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <div class="flip-front-header">
+                    <h5 class="mb-0"><i class="fas fa-server me-2"></i>API Pokémon</h5>
+                    <span class="badge bg-secondary">API REST</span>
+                  </div>
+                  <p id="projectDesc4" class="flip-front-desc">API completa para gestión de datos Pokémon con endpoints RESTful y documentación.</p>
+                  <button class="btn btn-outline-primary btn-sm preview-btn" type="button">
+                    <i class="fas fa-eye me-1"></i><span class="preview-label">Preview</span>
+                  </button>
                 </div>
-                <p class="card-text text-muted small mb-3">API completa para gestión de datos Pokémon con endpoints RESTful y documentación.</p>
-                <a href="https://stefano-gac.github.io/ApiPokemon/" target="_blank" class="btn btn-primary btn-sm">Ver proyecto <i class="fas fa-arrow-right ms-1"></i></a>
+                <div class="flip-card-back">
+                  <div class="iframe-bar">
+                    <span class="iframe-domain"><i class="fas fa-circle" style="color:#4ade80;font-size:.45rem;"></i> api-pokemon</span>
+                    <div class="d-flex gap-2 align-items-center">
+                      <button type="button" class="btn btn-sm btn-outline-light back-btn">
+                        <i class="fas fa-rotate-left me-1"></i><span class="back-label">Volver</span>
+                      </button>
+                      <a href="https://stefano-gac.github.io/ApiPokemon/" target="_blank" rel="noopener noreferrer" class="btn btn-light btn-sm">
+                        <span class="project-btn-text">Ver completo</span> <i class="fas fa-arrow-right ms-1"></i>
+                      </a>
+                    </div>
+                  </div>
+                  <div class="iframe-wrap">
+                    <iframe data-src="https://stefano-gac.github.io/ApiPokemon/" class="project-iframe" title="API Pokémon preview" sandbox="allow-scripts allow-same-origin"></iframe>
+                  </div>
+                </div>
               </div>
-            </div>
+            </article>
           </div>
+
         </div>
         <div class="mt-5 text-center">
           <a href="https://github.com/Stefano-GAC" target="_blank" class="btn btn-primary btn-lg">
-            <i class="fab fa-github me-2"></i>Ver más en GitHub
+            <i class="fab fa-github me-2"></i><span id="moreGithub">Ver más en GitHub</span>
           </a>
         </div>
       </div>
@@ -182,10 +243,24 @@
       <i class="fas fa-arrow-up"></i>
     </button>
 
+    <!-- BOTÓN FLOTANTE WHATSAPP -->
+    <a
+      href="https://wa.me/34624461935"
+      id="whatsappFloat"
+      class="whatsapp-float"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Abrir chat de WhatsApp con Stefano"
+      title="Escribeme por WhatsApp"
+    >
+      <i class="fab fa-whatsapp" aria-hidden="true"></i>
+      <span class="whatsapp-label">WhatsApp</span>
+    </a>
+
     <!-- FOOTER -->
     <footer class="py-4 border-top" style="background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);">
       <div class="container text-center">
-        <p class="mb-2 text-muted">© 2026 Stefano Alderete | Desarrollador Web</p>
+        <p id="footerText" class="mb-2 text-muted">© 2026 Stefano Alderete | Desarrollador Web</p>
         <div class="d-flex justify-content-center gap-3">
           <a href="https://github.com/Stefano-GAC" class="text-primary text-decoration-none" title="GitHub"><i class="fab fa-github fa-lg"></i></a>
           <a href="https://www.linkedin.com/in/stefano-gonzalo-alderete-campos-b045373b5/" class="text-primary text-decoration-none" title="LinkedIn"><i class="fab fa-linkedin fa-lg"></i></a>
