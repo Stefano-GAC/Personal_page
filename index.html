@@ -2,44 +2,70 @@
 <html lang="es">
 
 <head>
+  <!--
+    MAPA RAPIDO DEL DOCUMENTO
+    1) HEAD: carga CDN + estilos locales
+    2) NAVBAR: navegacion interna + selector de idioma
+    3) HERO: presentacion principal + typing effect (#typing)
+    4) SOBRE MI: texto personal traducible
+    5) PROYECTOS: tarjetas flip con preview lazy en iframe
+    6) ACCIONES FIJAS: back to top + WhatsApp
+    7) FOOTER: cierre y enlaces sociales
+    8) MODAL: ampliacion de imagen de perfil
+    9) SCRIPTS: bootstrap bundle + logica en script.js
+  -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Stefano Campos | Desarrollador Web</title>
 
-  <!-- Bootstrap CSS (v5) -->
+  <!-- Bootstrap CSS (v5): grid responsive, navbar colapsable y utilidades visuales -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-***" crossorigin="anonymous">
 
-  <!-- Font Awesome para iconos -->
+  <!-- Font Awesome: iconos de secciones, botones y redes -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-  <!-- Google Fonts: Montserrat -->
+  <!-- Google Fonts: tipografia principal de toda la interfaz -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Animate.css para animaciones -->
+  <!-- Animate.css: se usa sobre todo en el modal de perfil -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 
-  <!-- Estilos personalizados -->
+  <!-- Estilos personalizados: colores, animaciones, flip-cards y responsive propio -->
   <link rel="stylesheet" href="style.css">
 
-  <!-- Eliminamos styles.css; todo se hace con utilidades de Bootstrap -->
+  <!-- Nota historica: el proyecto usa un unico archivo local de estilos (style.css). -->
 
 </head>
 
   <body class="bg-light text-dark">
 
-    <!-- NAVBAR BOOTSTRAP -->
+    <!--
+      NAVBAR BOOTSTRAP
+      - fixed-top: siempre visible en scroll
+      - enlaces internos por anclas
+      - boton LinkedIn externo
+      - selector de idioma (ES/EN) conectado a script.js
+    -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow">
       <div class="container-fluid">
         <a class="navbar-brand d-flex align-items-center" href="#">
           <span class="fs-5 fw-bold me-2 text-primary">SGAC</span>
+          <!-- Imagen clickeable: abre modal #profileModal por atributos data-bs-* -->
           <img src="Img/perfil.jpeg" alt="Foto de Stefano Campos" class="rounded-circle cursor-pointer" width="38" height="38" data-bs-toggle="modal" data-bs-target="#profileModal">
         </a>
+        <!-- Boton hamburguesa para vista movil -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
           aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
+        <!-- Contenido colapsable del menu -->
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto">
+            <!--
+              IMPORTANTE PARA I18N:
+              Los IDs navAbout y navProjects son consumidos por script.js.
+              Si se renombran, hay que actualizar translations y textIds.
+            -->
             <li class="nav-item"><a class="nav-link" href="#sobre-mi"><span id="navAbout">Sobre mí</span></a></li>
             <li class="nav-item"><a class="nav-link" href="#proyectos"><span id="navProjects">Proyectos</span></a></li>
             <li class="nav-item">
@@ -48,6 +74,7 @@
               </a>
             </li>
             <li class="nav-item d-flex align-items-center ms-lg-3 mt-2 mt-lg-0">
+              <!-- Selector visual de idioma. Estado activo via clase .active desde script.js -->
               <div class="language-switch" role="group" aria-label="Selector de idioma">
                 <button id="langEs" type="button" class="lang-btn active" aria-label="Cambiar a español" title="Español">
                   <span class="flag" aria-hidden="true">🇪🇸</span>
@@ -62,14 +89,21 @@
       </div>
     </nav>
 
-    <!-- HERO SECTION (Minimalista pero elegante) -->
+    <!--
+      HERO SECTION
+      - Presentacion principal del portfolio
+      - #typing se rellena dinamicamente (efecto maquina de escribir)
+      - CTA rapidos a perfiles externos
+    -->
     <header class="d-flex align-items-center justify-content-center text-center hero-gradient" style="min-height:60vh; padding-top: 80px;">
       <div class="container">
         <div class="hero-content">
           <div class="mb-3">
+            <!-- Segunda entrada al modal de perfil -->
             <img src="Img/perfil.jpeg" alt="Foto de Stefano Campos" class="rounded-circle shadow-lg mb-3 cursor-pointer" width="100" height="100" data-bs-toggle="modal" data-bs-target="#profileModal" style="border: 4px solid var(--primary-color); transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
           </div>
           <h1 class="display-5 fw-bold text-white mb-2">Stefano Alderete Campos</h1>
+          <!-- Este h2 inicia vacio: script.js lo completa con typingText segun idioma -->
           <h2 id="typing" class="fs-4 text-white mb-4"></h2>
           <div class="d-flex justify-content-center gap-2 flex-wrap">
             <a href="https://github.com/Stefano-GAC" target="_blank" class="btn btn-outline-light btn-sm">GitHub</a>
@@ -79,7 +113,11 @@
       </div>
     </header>
 
-    <!-- SOBRE MÍ -->
+    <!--
+      SOBRE MI
+      - Contenido breve de presentacion
+      - Texto y titulo traducibles (aboutTitle / aboutText)
+    -->
     <section id="sobre-mi" class="py-4 border-bottom">
       <div class="container">
         <h2 class="mb-3 text-primary"><i class="fas fa-user-circle me-2"></i><span id="aboutTitle">Sobre mí</span></h2>
@@ -91,12 +129,19 @@
       </div>
     </section>
 
-    <!-- PROYECTOS -->
+    <!--
+      PROYECTOS
+      PATRON DE CADA TARJETA:
+      1) Frente: nombre + stack + descripcion + boton preview
+      2) Dorso: mini barra + boton volver + boton abrir completo + iframe
+      3) script.js agrega/quita .is-flipped y carga iframe con lazy load
+    -->
     <section id="proyectos" class="py-4 bg-white">
       <div class="container">
         <h2 class="mb-4 text-primary"><i class="fas fa-briefcase me-2"></i><span id="projectsTitle">Proyectos Destacados</span></h2>
         <div class="row row-cols-1 row-cols-md-2 g-4">
 
+          <!-- PROYECTO 1: Pong Galactico -->
           <div class="col">
             <article class="flip-card project-flip">
               <div class="flip-card-inner">
@@ -123,6 +168,7 @@
                     </div>
                   </div>
                   <div class="iframe-wrap">
+                    <!-- data-src permite lazy load: script.js asigna src solo al abrir Preview -->
                     <iframe data-src="https://stefano-gac.github.io/Pong_Gal-ctico/" class="project-iframe" title="Pong Galáctico preview" sandbox="allow-scripts allow-same-origin"></iframe>
                   </div>
                 </div>
@@ -130,6 +176,7 @@
             </article>
           </div>
 
+          <!-- PROYECTO 2: Netflix Clone -->
           <div class="col">
             <article class="flip-card project-flip">
               <div class="flip-card-inner">
@@ -156,6 +203,7 @@
                     </div>
                   </div>
                   <div class="iframe-wrap">
+                    <!-- Mismo patron de lazy load para no penalizar carga inicial de la pagina -->
                     <iframe data-src="https://stefano-gac.github.io/Netflix_Bamba/" class="project-iframe" title="Netflix Clone preview" sandbox="allow-scripts allow-same-origin"></iframe>
                   </div>
                 </div>
@@ -163,6 +211,7 @@
             </article>
           </div>
 
+          <!-- PROYECTO 3: NeonDrive -->
           <div class="col">
             <article class="flip-card project-flip">
               <div class="flip-card-inner">
@@ -189,6 +238,7 @@
                     </div>
                   </div>
                   <div class="iframe-wrap">
+                    <!-- Se mantiene sandbox para acotar permisos del iframe embebido -->
                     <iframe data-src="https://stefano-gac.github.io/NeonDrive/index.html" class="project-iframe" title="NeonDrive preview" sandbox="allow-scripts allow-same-origin"></iframe>
                   </div>
                 </div>
@@ -196,6 +246,7 @@
             </article>
           </div>
 
+          <!-- PROYECTO 4: API Pokemon -->
           <div class="col">
             <article class="flip-card project-flip">
               <div class="flip-card-inner">
@@ -231,6 +282,7 @@
 
         </div>
         <div class="mt-5 text-center">
+          <!-- CTA secundaria para ir al repositorio principal de GitHub -->
           <a href="https://github.com/Stefano-GAC" target="_blank" class="btn btn-primary btn-lg">
             <i class="fab fa-github me-2"></i><span id="moreGithub">Ver más en GitHub</span>
           </a>
@@ -238,12 +290,21 @@
       </div>
     </section>
 
-    <!-- BOTÓN BACK TO TOP -->
+    <!--
+      BOTON BACK TO TOP
+      - Oculto por defecto
+      - script.js lo muestra al superar 200px de scroll
+      - Al hacer click, vuelve con scroll suave
+    -->
     <button id="backToTop" class="btn btn-primary btn-lg rounded-circle shadow" style="display:none; position:fixed; bottom:30px; right:30px; width:50px; height:50px;">
       <i class="fas fa-arrow-up"></i>
     </button>
 
-    <!-- BOTÓN FLOTANTE WHATSAPP -->
+    <!--
+      BOTON FLOTANTE WHATSAPP
+      - Enlace directo a chat
+      - aria-label y title se actualizan por idioma en script.js
+    -->
     <a
       href="https://wa.me/34624461935"
       id="whatsappFloat"
@@ -257,9 +318,10 @@
       <span class="whatsapp-label">WhatsApp</span>
     </a>
 
-    <!-- FOOTER -->
+    <!-- FOOTER: cierre de pagina con firma y redes -->
     <footer class="py-4 border-top" style="background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);">
       <div class="container text-center">
+        <!-- #footerText tambien es traducible via script.js -->
         <p id="footerText" class="mb-2 text-muted">© 2026 Stefano Alderete | Desarrollador Web</p>
         <div class="d-flex justify-content-center gap-3">
           <a href="https://github.com/Stefano-GAC" class="text-primary text-decoration-none" title="GitHub"><i class="fab fa-github fa-lg"></i></a>
@@ -268,13 +330,19 @@
       </div>
     </footer>
 
-    <!-- Modal para foto de perfil -->
+    <!--
+      MODAL DE PERFIL
+      - Se abre desde avatar en navbar y hero
+      - Gestionado por Bootstrap (no requiere JS custom para abrir/cerrar)
+    -->
     <div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content bg-transparent border-0 shadow-lg">
           <div class="modal-body text-center p-4">
             <div class="position-relative">
+              <!-- Fondo decorativo animado para destacar la foto -->
               <div class="profile-modal-bg animate__animated animate__fadeIn" style="position: absolute; top: -20px; left: -20px; right: -20px; bottom: -20px; background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); border-radius: 20px; opacity: 0.1; z-index: -1;"></div>
+              <!-- Imagen principal ampliada -->
               <img src="Img/perfil.jpeg" alt="Foto de Stefano Campos" class="img-fluid rounded shadow-lg animate__animated animate__zoomIn animate__delay-1s profile-modal-img" style="max-width:400px;">
             </div>
           </div>
@@ -282,10 +350,17 @@
       </div>
     </div>
 
-    <!-- Bootstrap JS bundle -->
+    <!-- Bootstrap JS bundle: habilita modal, collapse y comportamientos data-bs-* -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-***" crossorigin="anonymous"></script>
 
-    <!-- Script propio -->
+    <!--
+      Script propio (script.js)
+      Logica incluida:
+      - traduccion ES/EN
+      - typing effect
+      - flip cards + lazy iframe
+      - visibilidad back to top
+    -->
     <script src="script.js"></script>
 
   </body>

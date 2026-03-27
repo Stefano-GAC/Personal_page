@@ -1,3 +1,5 @@
+// Diccionario central de textos por idioma.
+// Todas las claves usadas en UI deben existir en cada idioma disponible.
 const translations = {
   es: {
     pageTitle: "Stefano Campos | Desarrollador Web",
@@ -77,6 +79,7 @@ const translations = {
   }
 };
 
+// IDs de nodos que se traducen mediante textContent.
 const textIds = [
   "navAbout",
   "navProjects",
@@ -103,6 +106,7 @@ const textIds = [
   "footerText"
 ];
 
+// Referencias DOM reutilizadas para evitar consultas repetitivas.
 const typingElement = document.getElementById("typing");
 const langEsBtn = document.getElementById("langEs");
 const langEnBtn = document.getElementById("langEn");
@@ -115,6 +119,7 @@ let typingIndex = 0;
 let typingText = "";
 
 function clearTypingTimers() {
+  // Evita que se acumulen timers al cambiar idioma rapidamente.
   if (typingTimer) {
     clearTimeout(typingTimer);
     typingTimer = null;
@@ -130,6 +135,7 @@ function runTypingEffect() {
     return;
   }
 
+  // Escribe caracter por caracter hasta completar el texto actual.
   if (typingIndex < typingText.length) {
     typingElement.textContent += typingText.charAt(typingIndex);
     typingIndex += 1;
@@ -137,6 +143,7 @@ function runTypingEffect() {
     return;
   }
 
+  // Reinicia el ciclo para mantener animacion continua.
   typingResetTimer = setTimeout(() => {
     typingElement.textContent = "";
     typingIndex = 0;
@@ -155,12 +162,14 @@ function restartTyping(newText) {
 }
 
 function applyLanguage(lang) {
+  // Fallback a espanol si el idioma pedido no existe.
   const selectedLanguage = translations[lang] ? lang : "es";
   const t = translations[selectedLanguage];
 
   document.documentElement.lang = selectedLanguage;
   document.title = t.pageTitle;
 
+  // Traduce nodos con id directo.
   textIds.forEach((id) => {
     const el = document.getElementById(id);
     if (el && t[id]) {
@@ -168,6 +177,7 @@ function applyLanguage(lang) {
     }
   });
 
+  // Traduce etiquetas repetidas en listas de proyectos.
   document.querySelectorAll(".project-btn-text").forEach((el) => {
     el.textContent = t.viewProject;
   });
@@ -194,6 +204,7 @@ function applyLanguage(lang) {
     langEnBtn.classList.toggle("active", selectedLanguage === "en");
   }
 
+  // Persiste preferencia para siguientes visitas.
   localStorage.setItem("portfolioLanguage", selectedLanguage);
   restartTyping(t.typingText);
 }
@@ -206,9 +217,11 @@ if (langEnBtn) {
   langEnBtn.addEventListener("click", () => applyLanguage("en"));
 }
 
+// Inicializacion de idioma al cargar la pagina.
 const initialLanguage = localStorage.getItem("portfolioLanguage") || "es";
 applyLanguage(initialLanguage);
 
+// Sistema de flip-card para previews de proyectos.
 document.querySelectorAll(".project-flip").forEach((card) => {
   const previewBtn = card.querySelector(".preview-btn");
   const backBtn = card.querySelector(".back-btn");
@@ -218,6 +231,7 @@ document.querySelectorAll(".project-flip").forEach((card) => {
       e.stopPropagation();
       card.classList.add("is-flipped");
       const iframe = card.querySelector(".project-iframe");
+      // Lazy load: carga iframe solo cuando el usuario abre preview.
       if (iframe && !iframe.src && iframe.dataset.src) {
         iframe.src = iframe.dataset.src;
         iframe.addEventListener("load", () => iframe.classList.add("loaded"), { once: true });
@@ -233,10 +247,10 @@ document.querySelectorAll(".project-flip").forEach((card) => {
   }
 });
 
-// Selecciona todos los elementos con clase hidden
+// Animaciones por interseccion (si existen elementos .hidden en el DOM).
 const hiddenElements = document.querySelectorAll(".hidden");
 
-// Crea un observador para detectar cuando aparecen en pantalla
+// Al entrar en viewport, se agrega .show para activar transicion CSS.
 const observer = new IntersectionObserver((entries) => {
   entries.forEach((entry) => {
     if (entry.isIntersecting) {
@@ -249,6 +263,7 @@ hiddenElements.forEach((el) => observer.observe(el));
 
 const backToTop = document.getElementById("backToTop");
 
+// Muestra u oculta el boton segun profundidad de scroll.
 window.onscroll = function () {
   if (!backToTop) {
     return;
@@ -262,6 +277,7 @@ window.onscroll = function () {
 };
 
 if (backToTop) {
+  // Vuelve al inicio con desplazamiento suave.
   backToTop.onclick = function () {
     window.scrollTo({
       top: 0,

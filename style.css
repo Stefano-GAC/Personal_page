@@ -9,6 +9,10 @@
   --border-color: #e5e7eb; /* Gris claro */
 }
 
+/* ============================
+  Base visual y navegacion
+============================ */
+
 /* Animación del navbar */
 .navbar {
   animation: slideDown 1s ease-out;
@@ -92,6 +96,10 @@
   font-size: 1rem;
   line-height: 1;
 }
+
+/* ============================
+   Tarjetas y animaciones de contenido
+============================ */
 
 /* Animación de cards */
 .card {
@@ -203,6 +211,10 @@
   max-width: 700px;
   line-height: 1.55;
 }
+
+/* ============================
+   Motor flip-card de proyectos
+============================ */
 
 .flip-card {
   height: 260px;
@@ -424,6 +436,10 @@
 .metric-pill i {
   color: var(--secondary-color);
 }
+
+/* ============================
+   Botones flotantes y utilidades globales
+============================ */
 
 /* Boton flotante de WhatsApp */
 .whatsapp-float {

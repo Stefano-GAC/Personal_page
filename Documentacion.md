@@ -1,402 +1,284 @@
-# Documentación Técnica del Proyecto
+# Documentacion Tecnica - Personal Page
 
-## Página Web Personal -- Portfolio
+Esta documentacion describe en detalle el estado actual del portfolio para que cualquier programador pueda continuar el trabajo sin depender de contexto oral.
 
-------------------------------------------------------------------------
+## 1. Objetivo del proyecto
 
-# 1. Descripción general del proyecto
+Sitio web personal estatico orientado a mostrar perfil profesional y proyectos destacados.
 
-Este proyecto consiste en una página web personal tipo **portfolio**
-desarrollada utilizando tecnologías web estándar.
+Objetivos funcionales actuales:
 
-Tecnologías principales:
+1. Presentar informacion personal en formato claro y responsive.
+2. Mostrar proyectos con una vista previa interactiva (flip + iframe lazy load).
+3. Permitir cambio de idioma (ES/EN) en tiempo real.
+4. Facilitar contacto externo (LinkedIn, GitHub, WhatsApp).
 
--   HTML5 para la estructura
--   CSS3 para los estilos
--   JavaScript (Vanilla) para la interactividad
--   Bootstrap 5 para el diseño responsive
+## 2. Stack tecnico
 
-El objetivo de la web es mostrar:
+1. HTML5: estructura semantica de layout y contenido.
+2. CSS3: estilos personalizados, animaciones y capas visuales.
+3. JavaScript Vanilla: logica de traducciones, efectos y eventos.
+4. Bootstrap 5 (CDN): layout base responsive y utilidades UI.
+5. Font Awesome (CDN): iconografia.
+6. Animate.css (CDN): animaciones puntuales en modal.
+7. Google Fonts (CDN): tipografia Montserrat.
 
--   Información personal
--   Habilidades técnicas
--   Proyectos realizados
--   Información de contacto
+## 3. Estructura del repositorio
 
-La web es **completamente estática**, lo que significa que:
-
--   No utiliza backend
--   No utiliza base de datos
--   Todo el comportamiento ocurre en el navegador mediante JavaScript
-
-------------------------------------------------------------------------
-
-# 2. Estructura del proyecto
-
-Estructura general del repositorio:
-
-    Personal_page/
-    │
-    ├── index.html
-    ├── style.css
-    ├── script.js
-    ├── README.md
-    │
-    └── Img/
-        ├── fondo.jpg
-        └── perfil.jpeg
-
-Descripción:
-
-  Archivo      Descripción
-  ------------ -----------------------------------
-  index.html   Estructura principal de la página
-  style.css    Estilos personalizados
-  script.js    Funcionalidad dinámica
-  Img/         Carpeta con imágenes utilizadas
-
-------------------------------------------------------------------------
-
-# 3. Tecnologías utilizadas
-
-## 3.1 HTML5
-
-HTML se utiliza para definir:
-
--   estructura de la página
--   secciones
--   navegación
--   contenido
-
-------------------------------------------------------------------------
-
-## 3.2 CSS3
-
-CSS se utiliza para:
-
--   estilos visuales
--   animaciones
--   efectos hover
--   personalización de Bootstrap
-
-------------------------------------------------------------------------
-
-## 3.3 JavaScript
-
-JavaScript se utiliza para:
-
--   animaciones al hacer scroll
--   botón de volver arriba
--   efecto de texto escribiéndose
-
-------------------------------------------------------------------------
-
-## 3.4 Bootstrap 5
-
-Bootstrap proporciona:
-
--   sistema de grid
--   componentes responsive
--   navbar adaptable
--   cards y layout
-
-Se carga mediante CDN.
-
-------------------------------------------------------------------------
-
-## 3.5 Librerías externas
-
-### Bootstrap
-
-    https://cdn.jsdelivr.net/npm/bootstrap@5.3.2
-
-### Font Awesome
-
-Utilizado para iconos.
-
-    https://cdnjs.cloudflare.com/ajax/libs/font-awesome
-
-### Google Fonts
-
-Fuente utilizada:
-
-    Montserrat
-
-### Animate.css
-
-Utilizada para animaciones predefinidas.
-
-------------------------------------------------------------------------
-
-# 4. Estructura del HTML
-
-Archivo principal:
-
-    index.html
-
-La página se divide en varias secciones.
-
-------------------------------------------------------------------------
-
-# 4.1 Head del documento
-
-En el `<head>` se cargan:
-
--   meta tags
--   hojas de estilo
--   librerías externas
-
-Ejemplo:
-
-``` html
-<link rel="stylesheet" href="style.css">
+```text
+Personal_page/
+|- index.html
+|- style.css
+|- script.js
+|- README.md
+|- Documentacion.md
+`- Img/
+   |- perfil.jpeg
+   `- fondo.jpg (presente en carpeta, actualmente no referenciado de forma directa en index)
 ```
 
-------------------------------------------------------------------------
+Descripcion por archivo:
 
-# 4.2 Navbar
+1. index.html: pagina principal con todas las secciones visibles.
+2. style.css: capa visual completa (variables, animaciones, responsive).
+3. script.js: comportamiento interactivo y traducciones.
+4. Documentacion.md: manual tecnico de continuidad.
+5. README.md: marcador simple (puede ampliarse en el futuro).
 
-La barra de navegación utiliza Bootstrap.
+## 4. Flujo de ejecucion
 
-Características:
+1. El navegador carga index.html.
+2. Se cargan estilos CDN + style.css.
+3. Se renderiza estructura completa (navbar, hero, proyectos, footer, modal).
+4. Se ejecuta script.js al final del body.
+5. script.js aplica idioma inicial desde localStorage.
+6. Se activa efecto typing segun idioma.
+7. Se registran listeners para botones de idioma, cards y scroll.
 
--   fija en la parte superior
--   responsive
--   colapsa en móvil
--   contiene enlaces de navegación
+No hay backend ni llamadas a API internas. Todo ocurre del lado del cliente.
 
-Secciones enlazadas:
+## 5. Arquitectura de index.html
 
--   Sobre mí
--   Proyectos
--   Habilidades
--   Contacto
+### 5.1 Head
 
-------------------------------------------------------------------------
+Incluye:
 
-# 4.3 Sección Hero
+1. Metadatos basicos (charset + viewport).
+2. CDN de Bootstrap CSS.
+3. CDN de Font Awesome.
+4. Fuente Montserrat desde Google Fonts.
+5. Animate.css.
+6. Hoja local style.css.
 
-Primera sección visible de la página.
+### 5.2 Navbar
+
+Responsabilidades:
+
+1. Branding (SGAC + foto de perfil clickable).
+2. Navegacion interna por anclas (#sobre-mi, #proyectos).
+3. CTA externo a LinkedIn.
+4. Selector de idioma ES/EN.
+
+Notas de implementacion:
+
+1. Navbar fija con fixed-top.
+2. Modo colapsable en pantallas pequenas via bootstrap navbar-toggler.
+3. Imagen de perfil abre modal usando data-bs-toggle y data-bs-target.
+
+### 5.3 Hero
 
 Contiene:
 
--   nombre
--   profesión
--   texto dinámico
--   fondo con gradiente animado
+1. Foto de perfil (abre modal).
+2. Nombre principal.
+3. Texto dinamico typing con id typing.
+4. Botones externos a GitHub y LinkedIn.
 
-------------------------------------------------------------------------
+### 5.4 Seccion Sobre mi
 
-# 4.4 Sección Sobre mí
+1. Titulo traducible (id aboutTitle).
+2. Parrafo traducible (id aboutText).
+3. Decoracion visual con borde lateral.
 
-Incluye:
+### 5.5 Seccion Proyectos
 
--   descripción personal
--   texto centrado
--   animación de entrada
+Cada proyecto usa estructura flip:
 
-------------------------------------------------------------------------
+1. Cara frontal:
+   - Titulo + icono.
+   - Badge de tecnologia.
+   - Descripcion corta traducible.
+   - Boton Preview.
+2. Cara trasera:
+   - Barra superior con dominio interno + botones.
+   - Boton Volver (deshace flip).
+   - Boton Ver completo (abre proyecto externo).
+   - Iframe que se carga de forma lazy con data-src.
 
-# 4.5 Sección Proyectos
+Proyectos actuales mapeados:
 
-Se muestran proyectos mediante **cards de Bootstrap**.
+1. Pong Galactico.
+2. Netflix Clone.
+3. NeonDrive.
+4. API Pokemon.
 
-Cada card contiene:
+### 5.6 Botones flotantes y footer
 
--   título
--   descripción
--   icono
--   animación hover
+1. Back to top (id backToTop): aparece al hacer scroll.
+2. WhatsApp flotante (id whatsappFloat): enlace directo con etiqueta contextual.
+3. Footer con texto traducible e iconos sociales.
 
-------------------------------------------------------------------------
+### 5.7 Modal de perfil
 
-# 4.6 Sección Habilidades
+1. Modal Bootstrap centrado.
+2. Imagen ampliada con animaciones de entrada/glow.
 
-Muestra tecnologías y conocimientos.
+## 6. Arquitectura de style.css
 
-Cada elemento utiliza la clase:
+El archivo mezcla 4 capas importantes:
 
-    .skill-item
+1. Sistema de tokens (variables CSS en :root).
+2. Estilos de componentes (navbar, hero, flip-cards, modal, botones).
+3. Animaciones (@keyframes y efectos hover).
+4. Ajustes responsive (media query <= 576px).
 
-------------------------------------------------------------------------
+### 6.1 Variables principales
 
-# 4.7 Sección Contacto
+1. --primary-color: azul de marca.
+2. --secondary-color: verde secundario.
+3. --accent-color: acento ambar.
+4. Variables de fondo, texto y bordes para consistencia.
 
-Incluye:
+### 6.2 Componentes relevantes
 
--   enlaces a redes sociales
--   iconos FontAwesome
+1. .language-switch y .lang-btn: control visual del idioma activo.
+2. .hero-gradient: fondo animado del hero.
+3. .flip-card / .flip-card-inner / .flip-card-front / .flip-card-back: motor visual del flip.
+4. .project-iframe: vista previa escalada (simulacion de mini navegador).
+5. .whatsapp-float: CTA fija con animacion de pulso.
+6. .profile-modal-img: glow animado en modal.
 
-------------------------------------------------------------------------
+### 6.3 Animaciones definidas
 
-# 5. Sistema de estilos (style.css)
+1. slideDown: entrada del navbar.
+2. fadeInUp: entrada del bloque hero.
+3. gradientMove: desplazamiento del gradiente principal.
+4. whatsappPulse: anillo animado del boton flotante.
+5. pulse: latido de badges.
+6. pulse-bg / glowPulse: fondo e imagen del modal.
 
-Archivo encargado de todo el diseño visual.
+## 7. Arquitectura de script.js
 
-------------------------------------------------------------------------
+### 7.1 Internacionalizacion (i18n local)
 
-# 5.1 Variables CSS
+Objeto central: translations con claves es y en.
 
-Definidas en `:root`.
+Responsabilidades:
 
-``` css
-:root {
-  --primary-color: #1e40af;
-  --secondary-color: #059669;
-  --accent-color: #f59e0b;
-}
-```
+1. Definir textos de interfaz por idioma.
+2. Actualizar contenido por id en DOM.
+3. Actualizar etiquetas de botones dinamicos.
+4. Persistir idioma seleccionado en localStorage (portfolioLanguage).
 
-------------------------------------------------------------------------
+Funciones clave:
 
-# 5.2 Animación del Navbar
+1. applyLanguage(lang): aplica traduccion completa.
+2. restartTyping(newText): reinicia typing con el texto del idioma.
 
-Animación:
+### 7.2 Typing effect
 
-    slideDown
+Flujo:
 
-Utiliza `@keyframes` para hacer aparecer el navbar desde arriba.
+1. Escribe caracter por caracter en #typing.
+2. Espera 1 segundo al completar.
+3. Limpia y reinicia ciclo.
 
-------------------------------------------------------------------------
+Control de estado:
 
-# 5.3 Hover en enlaces
+1. typingTimer: setTimeout principal.
+2. typingResetTimer: timeout de reinicio.
+3. clearTypingTimers(): evita timers duplicados al cambiar idioma.
 
-Los enlaces del menú tienen una línea animada usando:
+### 7.3 Flip cards de proyectos
 
-    ::after
+Flujo al hacer click en Preview:
 
-------------------------------------------------------------------------
+1. Agrega clase is-flipped a la card.
+2. Detecta iframe dentro de la card.
+3. Si iframe no fue cargado, asigna src desde data-src.
+4. Al completar carga, agrega clase loaded para fade-in.
 
-# 5.4 Animaciones en cards
+Flujo al hacer click en Volver:
 
-Las cards usan:
+1. Quita clase is-flipped.
 
-    transform: translateY(-8px)
+### 7.4 Scroll behavior
 
-Esto crea efecto de elevación.
+1. IntersectionObserver para elementos .hidden (si existen).
+2. Control de visibilidad del boton back to top al superar 200px.
+3. Scroll suave al inicio cuando se pulsa back to top.
 
-------------------------------------------------------------------------
+## 8. Convenciones y decisiones de implementacion
 
-# 5.5 Gradiente animado
+1. Se prioriza estructura semantica y ids descriptivos para traduccion.
+2. Se usa Bootstrap para grid/base y CSS propio para identidad visual.
+3. Se evita dependencia de frameworks JS para mantener simplicidad.
+4. Se usa carga lazy de iframes para reducir carga inicial de red.
 
-El hero usa un fondo:
+## 9. Como extender el proyecto
 
-    linear-gradient
+### 9.1 Agregar un nuevo proyecto al grid
 
-Con animación continua.
+Pasos:
 
-------------------------------------------------------------------------
+1. Duplicar un bloque .col dentro de #proyectos.
+2. Cambiar titulo, descripcion y enlaces.
+3. Definir un nuevo id de descripcion (ej: projectDesc5).
+4. Agregar texto projectDesc5 en translations.es y translations.en.
+5. Incluir el id en el array textIds para que aplique traduccion.
 
-# 5.6 Animaciones en botones
+### 9.2 Agregar nuevas traducciones
 
-Los botones usan:
+Pasos:
 
-    .btn::before
+1. Crear nueva clave en translations (ej: fr).
+2. Replicar todas las llaves requeridas.
+3. Agregar boton de idioma en HTML.
+4. Registrar listener en JS.
 
-Esto crea un efecto de brillo al pasar el cursor.
+### 9.3 Agregar nueva seccion
 
-------------------------------------------------------------------------
+Pasos:
 
-# 6. Funcionalidades JavaScript
+1. Crear bloque semantico en index.html.
+2. Estilizar en style.css usando variables existentes.
+3. Si tiene texto traducible, asignar id y registrar en translations + textIds.
 
-Archivo:
+## 10. Riesgos tecnicos y puntos de mejora
 
-    script.js
+1. Integridad CDN: los valores integrity estan con placeholder (sha384-***). Conviene usar hashes reales o quitar integrity para evitar falsos bloqueos.
+2. Algunas llaves de traduccion de detalle tecnico (projectBackXa) existen en JS pero no tienen nodos con esos ids en HTML actual. No rompe el sitio, pero es deuda tecnica de mantenimiento.
+3. README.md esta minimo; podria resumir setup y deploy en GitHub Pages.
 
-Contiene tres funcionalidades principales.
+## 11. Pruebas manuales recomendadas antes de entregar cambios
 
-------------------------------------------------------------------------
+1. Cargar la pagina y validar que no haya errores en consola.
+2. Cambiar idioma ES/EN y confirmar persistencia tras recargar.
+3. Abrir cada preview de proyecto y comprobar carga del iframe.
+4. Verificar comportamiento en movil (navbar, botones flotantes, cards).
+5. Verificar modal de perfil y cierre correcto.
 
-# 6.1 Animaciones al hacer scroll
+## 12. Comandos de trabajo sugeridos
 
-Se utiliza:
+No hay build step obligatorio. Flujo tipico:
 
-    IntersectionObserver
+1. Abrir index.html con Live Server (VS Code) o navegador.
+2. Editar HTML/CSS/JS directamente.
+3. Probar en navegador desktop y mobile.
 
-Funcionamiento:
+## 13. Estado actual de continuidad
 
-1.  Selecciona elementos con clase `.hidden`
-2.  Detecta cuando aparecen en pantalla
-3.  Añade la clase `.show`
-
-------------------------------------------------------------------------
-
-# 6.2 Botón Back to Top
-
-Elemento:
-
-    id="backToTop"
-
-Funcionamiento:
-
--   aparece después de hacer scroll
--   al hacer click vuelve arriba con scroll suave
-
-------------------------------------------------------------------------
-
-# 6.3 Typing Effect
-
-Simula escritura automática del texto:
-
-    Desarrollador de aplicaciones web
-
-Funcionamiento:
-
-1.  escribe letra por letra
-2.  espera
-3.  borra texto
-4.  repite ciclo
-
-------------------------------------------------------------------------
-
-# 7. Imágenes
-
-Ubicación:
-
-    Img/
-
-Archivos:
-
--   fondo.jpg
--   perfil.jpeg
-
-Uso:
-
-  Imagen        Uso
-  ------------- ----------------
-  fondo.jpg     fondo visual
-  perfil.jpeg   foto de perfil
-
-------------------------------------------------------------------------
-
-# 8. Responsividad
-
-Gracias a Bootstrap:
-
--   container
--   row
--   col
--   col-md
--   col-lg
-
-La web se adapta a:
-
--   móvil
--   tablet
--   escritorio
-
-------------------------------------------------------------------------
-
-# 9. Dependencias externas
-
-CDNs utilizados:
-
--   Bootstrap
--   FontAwesome
--   Animate.css
--   Google Fonts
-
-------------------------------------------------------------------------
+El proyecto es estable para continuar evolucionando UI, contenido y secciones. La arquitectura es simple, legible y apta para onboarding rapido de otro desarrollador.
 
 # 10. Posibles mejoras futuras
 
