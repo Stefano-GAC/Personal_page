@@ -69,6 +69,11 @@
             <li class="nav-item"><a class="nav-link" href="#sobre-mi"><span id="navAbout">Sobre mí</span></a></li>
             <li class="nav-item"><a class="nav-link" href="#proyectos"><span id="navProjects">Proyectos</span></a></li>
             <li class="nav-item">
+              <a class="nav-link d-flex align-items-center" href="brief.html" title="Asistente de brief rapido">
+                <i class="fas fa-file-signature me-1"></i><span id="navBrief">Asistente</span>
+              </a>
+            </li>
+            <li class="nav-item">
               <a class="nav-link btn btn-outline-primary ms-2" href="https://www.linkedin.com/in/stefano-gonzalo-alderete-campos-b045373b5/" target="_blank">
                 LinkedIn
               </a>
@@ -77,12 +82,17 @@
               <!-- Selector visual de idioma. Estado activo via clase .active desde script.js -->
               <div class="language-switch" role="group" aria-label="Selector de idioma">
                 <button id="langEs" type="button" class="lang-btn active" aria-label="Cambiar a español" title="Español">
-                  <span class="flag" aria-hidden="true">🇪🇸</span>
+                  <span class="flag" aria-hidden="true">ES</span>
                 </button>
                 <button id="langEn" type="button" class="lang-btn" aria-label="Switch to English" title="English">
-                  <span class="flag" aria-hidden="true">🇬🇧</span>
+                  <span class="flag" aria-hidden="true">EN</span>
                 </button>
               </div>
+            </li>
+            <li class="nav-item d-flex align-items-center ms-lg-2 mt-2 mt-lg-0">
+              <button id="themeToggle" class="btn btn-sm btn-outline-primary" type="button" aria-label="Cambiar tema visual">
+                <i class="fas fa-palette me-1"></i><span id="themeToggleLabel">Modo Arcade</span>
+              </button>
             </li>
           </ul>
         </div>
@@ -96,6 +106,9 @@
       - CTA rapidos a perfiles externos
     -->
     <header class="d-flex align-items-center justify-content-center text-center hero-gradient" style="min-height:60vh; padding-top: 80px;">
+      <div class="hero-orb orb-a" aria-hidden="true"></div>
+      <div class="hero-orb orb-b" aria-hidden="true"></div>
+      <div class="hero-grid" aria-hidden="true"></div>
       <div class="container">
         <div class="hero-content">
           <div class="mb-3">
@@ -143,7 +156,7 @@
 
           <!-- PROYECTO 1: Pong Galactico -->
           <div class="col">
-            <article class="flip-card project-flip">
+            <article class="flip-card project-flip" data-project="pong">
               <div class="flip-card-inner">
                 <div class="flip-card-front">
                   <div class="flip-front-header">
@@ -151,9 +164,14 @@
                     <span class="badge bg-primary">JavaScript</span>
                   </div>
                   <p id="projectDesc1" class="flip-front-desc">Juego interactivo con JavaScript y HTML5 Canvas con físicas realistas y efectos visuales.</p>
-                  <button class="btn btn-outline-primary btn-sm preview-btn" type="button">
-                    <i class="fas fa-eye me-1"></i><span class="preview-label">Preview</span>
-                  </button>
+                  <div class="d-flex gap-2">
+                    <button class="btn btn-outline-primary btn-sm preview-btn" type="button">
+                      <i class="fas fa-eye me-1"></i><span class="preview-label">Preview</span>
+                    </button>
+                    <button class="btn btn-outline-dark btn-sm demo-btn" type="button">
+                      <i class="fas fa-bolt me-1"></i><span class="demo-label">Demo</span>
+                    </button>
+                  </div>
                 </div>
                 <div class="flip-card-back">
                   <div class="iframe-bar">
@@ -178,7 +196,7 @@
 
           <!-- PROYECTO 2: Netflix Clone -->
           <div class="col">
-            <article class="flip-card project-flip">
+            <article class="flip-card project-flip" data-project="netflix">
               <div class="flip-card-inner">
                 <div class="flip-card-front">
                   <div class="flip-front-header">
@@ -186,9 +204,14 @@
                     <span class="badge bg-danger">React</span>
                   </div>
                   <p id="projectDesc2" class="flip-front-desc">Interfaz de Netflix desarrollada con React con carruseles dinámicos y diseño responsive.</p>
-                  <button class="btn btn-outline-primary btn-sm preview-btn" type="button">
-                    <i class="fas fa-eye me-1"></i><span class="preview-label">Preview</span>
-                  </button>
+                  <div class="d-flex gap-2">
+                    <button class="btn btn-outline-primary btn-sm preview-btn" type="button">
+                      <i class="fas fa-eye me-1"></i><span class="preview-label">Preview</span>
+                    </button>
+                    <button class="btn btn-outline-dark btn-sm demo-btn" type="button">
+                      <i class="fas fa-bolt me-1"></i><span class="demo-label">Demo</span>
+                    </button>
+                  </div>
                 </div>
                 <div class="flip-card-back">
                   <div class="iframe-bar">
@@ -213,7 +236,7 @@
 
           <!-- PROYECTO 3: NeonDrive -->
           <div class="col">
-            <article class="flip-card project-flip">
+            <article class="flip-card project-flip" data-project="neondrive">
               <div class="flip-card-inner">
                 <div class="flip-card-front">
                   <div class="flip-front-header">
@@ -221,9 +244,14 @@
                     <span class="badge bg-warning text-dark">UI/UX</span>
                   </div>
                   <p id="projectDesc3" class="flip-front-desc">Landing page moderna con CSS animaciones avanzadas y diseño neon impactante.</p>
-                  <button class="btn btn-outline-primary btn-sm preview-btn" type="button">
-                    <i class="fas fa-eye me-1"></i><span class="preview-label">Preview</span>
-                  </button>
+                  <div class="d-flex gap-2">
+                    <button class="btn btn-outline-primary btn-sm preview-btn" type="button">
+                      <i class="fas fa-eye me-1"></i><span class="preview-label">Preview</span>
+                    </button>
+                    <button class="btn btn-outline-dark btn-sm demo-btn" type="button">
+                      <i class="fas fa-bolt me-1"></i><span class="demo-label">Demo</span>
+                    </button>
+                  </div>
                 </div>
                 <div class="flip-card-back">
                   <div class="iframe-bar">
@@ -248,7 +276,7 @@
 
           <!-- PROYECTO 4: API Pokemon -->
           <div class="col">
-            <article class="flip-card project-flip">
+            <article class="flip-card project-flip" data-project="pokemon">
               <div class="flip-card-inner">
                 <div class="flip-card-front">
                   <div class="flip-front-header">
@@ -256,9 +284,14 @@
                     <span class="badge bg-secondary">API REST</span>
                   </div>
                   <p id="projectDesc4" class="flip-front-desc">API completa para gestión de datos Pokémon con endpoints RESTful y documentación.</p>
-                  <button class="btn btn-outline-primary btn-sm preview-btn" type="button">
-                    <i class="fas fa-eye me-1"></i><span class="preview-label">Preview</span>
-                  </button>
+                  <div class="d-flex gap-2">
+                    <button class="btn btn-outline-primary btn-sm preview-btn" type="button">
+                      <i class="fas fa-eye me-1"></i><span class="preview-label">Preview</span>
+                    </button>
+                    <button class="btn btn-outline-dark btn-sm demo-btn" type="button">
+                      <i class="fas fa-bolt me-1"></i><span class="demo-label">Demo</span>
+                    </button>
+                  </div>
                 </div>
                 <div class="flip-card-back">
                   <div class="iframe-bar">
@@ -317,6 +350,27 @@
       <i class="fab fa-whatsapp" aria-hidden="true"></i>
       <span class="whatsapp-label">WhatsApp</span>
     </a>
+
+    <button id="miniChatToggle" class="btn btn-dark btn-sm" type="button" aria-label="Abrir chat rapido">
+      <i class="fas fa-comments me-1"></i><span id="chatToggleText">Chat rapido</span>
+    </button>
+
+    <section id="miniChat" class="mini-chat" aria-live="polite" aria-label="Chat de preguntas frecuentes">
+      <p id="chatHint" class="mb-2">Preguntame sobre proyectos, tiempos, stack o contacto.</p>
+      <div id="chatOutput" class="chat-output mb-2"></div>
+      <div class="d-flex flex-wrap gap-2 mb-2">
+        <button id="chatSugProjects" type="button" class="btn btn-outline-light btn-sm chat-suggestion" data-question="proyectos">Proyectos</button>
+        <button id="chatSugServices" type="button" class="btn btn-outline-light btn-sm chat-suggestion" data-question="servicios">Servicios</button>
+        <button id="chatSugTimeline" type="button" class="btn btn-outline-light btn-sm chat-suggestion" data-question="tiempos">Tiempos</button>
+        <button id="chatSugContact" type="button" class="btn btn-outline-light btn-sm chat-suggestion" data-question="contacto">Contacto</button>
+      </div>
+      <div class="d-flex align-items-center gap-2">
+        <input id="chatInput" type="text" class="form-control form-control-sm" autocomplete="off" placeholder="Escribe tu pregunta" />
+        <button id="chatSendBtn" type="button" class="btn btn-primary btn-sm"><span id="chatSendText">Enviar</span></button>
+      </div>
+    </section>
+
+    <div id="cursorGlow" class="cursor-glow" aria-hidden="true"></div>
 
     <!-- FOOTER: cierre de pagina con firma y redes -->
     <footer class="py-4 border-top" style="background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);">

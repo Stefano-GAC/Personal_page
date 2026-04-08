@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Asistente de Brief | Stefano Campos</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-***" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="bg-light text-dark">
+  <header class="hero-gradient d-flex align-items-center" style="min-height: 44vh;">
+    <div class="hero-orb orb-a" aria-hidden="true"></div>
+    <div class="hero-orb orb-b" aria-hidden="true"></div>
+    <div class="hero-grid" aria-hidden="true"></div>
+    <div class="container text-white">
+      <div class="d-flex flex-wrap gap-2 mb-3">
+        <a href="index.html" class="btn btn-outline-light btn-sm">
+          <i class="fas fa-arrow-left me-1"></i><span id="goBackLabel">Volver al Inicio</span>
+        </a>
+        <div class="language-switch" role="group" aria-label="Selector de idioma">
+          <button id="langEs" type="button" class="lang-btn active" aria-label="Cambiar a español" title="Español">
+            <span class="flag" aria-hidden="true">ES</span>
+          </button>
+          <button id="langEn" type="button" class="lang-btn" aria-label="Switch to English" title="English">
+            <span class="flag" aria-hidden="true">EN</span>
+          </button>
+        </div>
+      </div>
+      <h1 id="briefPageTitle" class="display-6 fw-bold mb-2">Asistente de brief rapido</h1>
+      <p id="briefPageSubtitle" class="mb-0" style="max-width: 760px;">Responde estas preguntas y genera un resumen profesional listo para enviar.</p>
+    </div>
+  </header>
+
+  <main class="py-5">
+    <section class="container">
+      <div class="row justify-content-center">
+        <div class="col-12 col-lg-9">
+          <article class="live-stat-card p-4 p-md-5">
+            <form id="briefForm" class="row g-3">
+              <div class="col-12 col-md-6">
+                <label for="briefType" id="briefTypeLabel" class="form-label">Tipo de proyecto</label>
+                <select id="briefType" class="form-select" required>
+                  <option value="Landing">Landing page</option>
+                  <option value="Ecommerce">Ecommerce</option>
+                  <option value="WebApp">Web App</option>
+                  <option value="API">API backend</option>
+                </select>
+              </div>
+              <div class="col-12 col-md-6">
+                <label for="briefTimeline" id="briefTimelineLabel" class="form-label">Plazo objetivo</label>
+                <select id="briefTimeline" class="form-select" required>
+                  <option value="2 semanas">2 semanas</option>
+                  <option value="1 mes">1 mes</option>
+                  <option value="2-3 meses">2-3 meses</option>
+                  <option value="Flexible">Flexible</option>
+                </select>
+              </div>
+              <div class="col-12 col-md-6">
+                <label for="briefBudget" id="briefBudgetLabel" class="form-label">Rango de presupuesto</label>
+                <select id="briefBudget" class="form-select" required>
+                  <option value="1000-3000 EUR">1000-3000 EUR</option>
+                  <option value="3000-6000 EUR">3000-6000 EUR</option>
+                  <option value="6000+ EUR">6000+ EUR</option>
+                  <option value="A definir">A definir</option>
+                </select>
+              </div>
+              <div class="col-12 col-md-6">
+                <label id="briefFeaturesLabel" class="form-label">Necesidades clave</label>
+                <div class="d-flex flex-wrap gap-3 mt-1">
+                  <label class="form-check-label"><input type="checkbox" class="form-check-input me-1" value="UI Premium" name="briefFeature" checked>UI Premium</label>
+                  <label class="form-check-label"><input type="checkbox" class="form-check-input me-1" value="Panel Admin" name="briefFeature">Panel Admin</label>
+                  <label class="form-check-label"><input type="checkbox" class="form-check-input me-1" value="Integracion API" name="briefFeature">Integracion API</label>
+                  <label class="form-check-label"><input type="checkbox" class="form-check-input me-1" value="Deploy + SEO" name="briefFeature">Deploy + SEO</label>
+                </div>
+              </div>
+              <div class="col-12 d-flex flex-wrap gap-2">
+                <button type="button" id="generateBrief" class="btn btn-primary">
+                  <i class="fas fa-wand-magic-sparkles me-1"></i><span id="generateBriefLabel">Generar resumen</span>
+                </button>
+                <a href="https://wa.me/34624461935" id="sendBriefWhatsapp" class="btn btn-success" target="_blank" rel="noopener noreferrer">
+                  <i class="fab fa-whatsapp me-1"></i><span id="sendBriefLabel">Enviar por WhatsApp</span>
+                </a>
+              </div>
+              <div class="col-12">
+                <label for="briefSummary" id="briefSummaryLabel" class="form-label">Resumen</label>
+                <textarea id="briefSummary" class="form-control" rows="8" readonly></textarea>
+              </div>
+            </form>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-***" crossorigin="anonymous"></script>
+  <script src="brief.js"></script>
+</body>
+
+</html>
