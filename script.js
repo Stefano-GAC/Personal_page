@@ -48,14 +48,14 @@ const translations = {
     sendBriefLabel: "Enviar por WhatsApp",
     briefSummaryLabel: "Resumen",
     chatToggleText: "Chat rapido",
-    chatHint: "Preguntame sobre proyectos, tiempos, stack o contacto.",
+    chatHint: "Preguntame sobre proyectos, habilidades, como trabajo, resultados o contacto.",
     chatSendText: "Enviar",
     chatPlaceholder: "Escribe tu pregunta",
     chatSugProjects: "Proyectos",
     chatSugServices: "Servicios",
     chatSugTimeline: "Tiempos",
     chatSugContact: "Contacto",
-    chatWelcome: "Hola, soy tu asistente rapido. Puedes preguntarme por proyectos, servicios, tiempos o contacto.",
+    chatWelcome: "Hola, soy tu asistente rapido. Puedes preguntarme por proyectos, habilidades, como trabajo, resultados o contacto.",
     briefTemplate:
       "Hola Stefano, quiero un proyecto tipo {type}.\nPlazo: {timeline}.\nPresupuesto: {budget}.\nNecesidades: {features}.\n\nBusco una propuesta tecnica con pasos claros.",
     demoMessages: {
@@ -69,9 +69,13 @@ const translations = {
       servicios: "Puedo ayudarte con landing pages, web apps, APIs, integraciones y mejoras de UI/UX.",
       tiempos: "Un proyecto pequeno suele tardar entre 2 y 4 semanas, segun alcance y revisiones.",
       stack: "Trabajo principalmente con React, JavaScript, Java, PHP y APIs REST.",
-      contacto: "Puedes contactarme por WhatsApp, LinkedIn o GitHub desde los botones de esta pagina."
+      contacto: "Puedes contactarme por WhatsApp, LinkedIn o GitHub desde los botones de esta pagina.",
+      habilidades: "Mis habilidades clave: React, JavaScript, Java, PHP, diseno UI/UX, integraciones API y optimizacion de experiencia web.",
+      comoTrabajo: "Mi proceso: 1) Discovery de objetivos, 2) Roadmap tecnico, 3) Desarrollo iterativo con entregas visibles, 4) Publicacion y soporte.",
+      resultados: "Resultados habituales: entregas mas rapidas, mejora de conversion, UI mas clara y arquitectura lista para escalar.",
+      comoConstrui: "Cada proyecto sigue una logica clara: problema real, decision tecnica, trade-off asumido y plan de mejora continua."
     },
-    chatFallback: "No capte bien la pregunta. Prueba con: proyectos, servicios, tiempos, stack o contacto.",
+    chatFallback: "No capte bien la pregunta. Prueba con: proyectos, habilidades, como trabajo, resultados, stack o contacto.",
     briefOptions: {
       types: ["Landing", "Ecommerce", "WebApp", "API"],
       timelines: ["2 semanas", "1 mes", "2-3 meses", "Flexible"],
@@ -127,14 +131,14 @@ const translations = {
     sendBriefLabel: "Send via WhatsApp",
     briefSummaryLabel: "Summary",
     chatToggleText: "Quick chat",
-    chatHint: "Ask me about projects, timeline, stack, or contact.",
+    chatHint: "Ask me about projects, skills, process, results, or contact.",
     chatSendText: "Send",
     chatPlaceholder: "Type your question",
     chatSugProjects: "Projects",
     chatSugServices: "Services",
     chatSugTimeline: "Timeline",
     chatSugContact: "Contact",
-    chatWelcome: "Hi, I am your quick assistant. Ask me about projects, services, timeline, or contact.",
+    chatWelcome: "Hi, I am your quick assistant. Ask me about projects, skills, process, results, or contact.",
     briefTemplate:
       "Hi Stefano, I need a {type} project.\nTimeline: {timeline}.\nBudget: {budget}.\nNeeds: {features}.\n\nI would like a technical proposal with clear milestones.",
     demoMessages: {
@@ -148,9 +152,13 @@ const translations = {
       services: "I can help with landing pages, web apps, APIs, integrations, and UI/UX improvements.",
       timeline: "A small project usually takes 2 to 4 weeks depending on scope and revisions.",
       stack: "My core stack is React, JavaScript, Java, PHP, and REST APIs.",
-      contact: "You can contact me via WhatsApp, LinkedIn, or GitHub from this page."
+      contact: "You can contact me via WhatsApp, LinkedIn, or GitHub from this page.",
+      skills: "My key skills: React, JavaScript, Java, PHP, UI/UX design, API integrations, and web experience optimization.",
+      process: "My process: 1) goals discovery, 2) technical roadmap, 3) iterative development with visible deliveries, 4) launch and support.",
+      results: "Typical outcomes: faster delivery, better conversion, clearer UI, and architecture ready to scale.",
+      buildStory: "Each project follows a clear path: real problem, technical decision, accepted trade-off, and continuous improvement plan."
     },
-    chatFallback: "I did not fully get it. Try: projects, services, timeline, stack, or contact.",
+    chatFallback: "I did not fully get it. Try: projects, skills, process, results, stack, or contact.",
     briefOptions: {
       types: ["Landing", "Ecommerce", "Web App", "Backend API"],
       timelines: ["2 weeks", "1 month", "2-3 months", "Flexible"],
@@ -408,6 +416,10 @@ function getChatReply(question) {
     if (normalized.includes("proyecto")) return t.chatReplies.proyectos;
     if (normalized.includes("servicio") || normalized.includes("haces") || normalized.includes("ofreces")) return t.chatReplies.servicios;
     if (normalized.includes("tiempo") || normalized.includes("demora") || normalized.includes("plazo")) return t.chatReplies.tiempos;
+    if (normalized.includes("habilidad") || normalized.includes("skills")) return t.chatReplies.habilidades;
+    if (normalized.includes("como trabaj") || normalized.includes("proceso") || normalized.includes("metodo")) return t.chatReplies.comoTrabajo;
+    if (normalized.includes("resultado") || normalized.includes("logro") || normalized.includes("impacto")) return t.chatReplies.resultados;
+    if (normalized.includes("como lo constru") || normalized.includes("como constru") || normalized.includes("trade-off") || normalized.includes("decision tecnica")) return t.chatReplies.comoConstrui;
     if (normalized.includes("stack") || normalized.includes("tecnologia") || normalized.includes("tecnologias")) return t.chatReplies.stack;
     if (normalized.includes("contact") || normalized.includes("whatsapp") || normalized.includes("linkedin") || normalized.includes("github")) return t.chatReplies.contacto;
     return t.chatFallback;
@@ -416,6 +428,10 @@ function getChatReply(question) {
   if (normalized.includes("project")) return t.chatReplies.projects;
   if (normalized.includes("service") || normalized.includes("offer")) return t.chatReplies.services;
   if (normalized.includes("time") || normalized.includes("timeline") || normalized.includes("long")) return t.chatReplies.timeline;
+  if (normalized.includes("skill")) return t.chatReplies.skills;
+  if (normalized.includes("process") || normalized.includes("work") || normalized.includes("workflow")) return t.chatReplies.process;
+  if (normalized.includes("result") || normalized.includes("impact")) return t.chatReplies.results;
+  if (normalized.includes("build") || normalized.includes("trade-off") || normalized.includes("technical decision")) return t.chatReplies.buildStory;
   if (normalized.includes("stack") || normalized.includes("tech")) return t.chatReplies.stack;
   if (normalized.includes("contact") || normalized.includes("whatsapp") || normalized.includes("linkedin") || normalized.includes("github")) return t.chatReplies.contact;
   return t.chatFallback;

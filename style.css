@@ -19,6 +19,12 @@
   transition: all 0.3s ease;
 }
 
+.navbar.bg-light {
+  background-color: rgba(248, 250, 252, 0.78) !important;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
 @keyframes slideDown {
   from {
     transform: translateY(-100%);
