@@ -38,7 +38,6 @@ const translations = {
     whatsappAria: "Abrir chat de WhatsApp con Stefano",
     whatsappLabel: "WhatsApp",
     typingText: "Desarrollador de aplicaciones web",
-    themeToggleLabel: "Modo Arcade",
     briefTitle: "Asistente de brief rapido",
     briefSubtitle: "Completa 4 datos y obtendras un resumen listo para enviar por WhatsApp.",
     briefTypeLabel: "Tipo de proyecto",
@@ -118,7 +117,6 @@ const translations = {
     whatsappAria: "Open WhatsApp chat with Stefano",
     whatsappLabel: "WhatsApp",
     typingText: "Web application developer",
-    themeToggleLabel: "Studio Mode",
     briefTitle: "Quick project brief assistant",
     briefSubtitle: "Fill 4 fields and get a ready-to-send summary for WhatsApp.",
     briefTypeLabel: "Project type",
@@ -186,7 +184,6 @@ const textIds = [
   "projectBack4c",
   "moreGithub",
   "footerText",
-  "themeToggleLabel",
   "briefTitle",
   "briefSubtitle",
   "briefTypeLabel",
@@ -210,7 +207,6 @@ const langEsBtn = document.getElementById("langEs");
 const langEnBtn = document.getElementById("langEn");
 const whatsappFloat = document.getElementById("whatsappFloat");
 const whatsappLabel = document.querySelector(".whatsapp-label");
-const themeToggle = document.getElementById("themeToggle");
 const briefForm = document.getElementById("briefForm");
 const briefType = document.getElementById("briefType");
 const briefTimeline = document.getElementById("briefTimeline");
@@ -232,7 +228,7 @@ let typingIndex = 0;
 let typingText = "";
 let currentLang = "es";
 let soundEnabled = false;
-let currentTheme = localStorage.getItem("portfolioTheme") || "studio";
+let currentTheme = "arcade";
 
 function clearTypingTimers() {
   if (typingTimer) {
@@ -293,16 +289,7 @@ function playUiTick(freq = 460, duration = 0.06) {
 }
 
 function updateThemeUi() {
-  const isArcade = currentTheme === "arcade";
-  document.body.classList.toggle("arcade-mode", isArcade);
-  const label = document.getElementById("themeToggleLabel");
-  if (label) {
-    if (currentLang === "es") {
-      label.textContent = isArcade ? "Modo Studio" : "Modo Arcade";
-    } else {
-      label.textContent = isArcade ? "Studio Mode" : "Arcade Mode";
-    }
-  }
+  document.body.classList.add("arcade-mode");
 }
 
 function applySelectOptions() {
@@ -598,15 +585,6 @@ function initBackToTop() {
 
 function initThemeAndSound() {
   updateThemeUi();
-
-  if (themeToggle) {
-    themeToggle.addEventListener("click", () => {
-      currentTheme = currentTheme === "studio" ? "arcade" : "studio";
-      localStorage.setItem("portfolioTheme", currentTheme);
-      updateThemeUi();
-      playUiTick(660, 0.09);
-    });
-  }
 }
 
 function initBriefAssistant() {
