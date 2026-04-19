@@ -195,7 +195,19 @@
       "auth/invalid-credential":      "Credenciales inválidas.",
       "auth/email-already-in-use":    "Ya existe una cuenta con ese correo.",
       "auth/weak-password":           "La contraseña es demasiado débil (mínimo 6 caracteres).",
+      "auth/operation-not-allowed":   "El método Email/Password no está habilitado en Firebase.",
+      "auth/api-key-not-valid":       "La API key de Firebase no es válida.",
+      "auth/invalid-api-key":         "La API key de Firebase no es válida.",
+      "auth/configuration-not-found": "Falta configuración de Authentication en Firebase.",
     };
+
+    function getFirebaseMessage(err, fallback) {
+      const code = err?.code || "";
+      if (firebaseMessages[code]) {
+        return firebaseMessages[code];
+      }
+      return `${fallback}${code ? ` (${code})` : ""}`;
+    }
 
     function showAlert(divId, msgId, text, type = "danger") {
       const div = document.getElementById(divId);
@@ -217,6 +229,10 @@
     // ── Formulario de LOGIN ──
     document.getElementById("loginForm").addEventListener("submit", async (e) => {
       e.preventDefault();
+      if (!e.currentTarget.reportValidity()) {
+        return;
+      }
+
       const email    = document.getElementById("loginEmail").value.trim();
       const password = document.getElementById("loginPassword").value;
 
@@ -227,7 +243,7 @@
         await login(email, password);
         window.location.href = "index.html";
       } catch (err) {
-        showAlert("loginAlert", "loginAlertMsg", firebaseMessages[err.code] || "Error al iniciar sesión.");
+        showAlert("loginAlert", "loginAlertMsg", getFirebaseMessage(err, "Error al iniciar sesión."));
       } finally {
         setLoading("loginBtn", "loginBtnText", "loginSpinner", false, "Iniciar sesión");
       }
@@ -236,6 +252,10 @@
     // ── Formulario de REGISTRO ──
     document.getElementById("registerForm").addEventListener("submit", async (e) => {
       e.preventDefault();
+      if (!e.currentTarget.reportValidity()) {
+        return;
+      }
+
       const name  = document.getElementById("registerName").value.trim();
       const email = document.getElementById("registerEmail").value.trim();
       const pass1 = document.getElementById("registerPassword").value;
@@ -248,6 +268,11 @@
         return;
       }
 
+      if (pass1.length < 6) {
+        showAlert("registerAlert", "registerAlertMsg", "La contraseña debe tener al menos 6 caracteres.");
+        return;
+      }
+
       setLoading("registerBtn", "registerBtnText", "registerSpinner", true);
 
       try {
@@ -255,7 +280,7 @@
         showAlert("registerAlert", "registerAlertMsg", "¡Cuenta creada! Redirigiendo…", "success");
         setTimeout(() => { window.location.href = "index.html"; }, 1200);
       } catch (err) {
-        showAlert("registerAlert", "registerAlertMsg", firebaseMessages[err.code] || "Error al registrarse.");
+        showAlert("registerAlert", "registerAlertMsg", getFirebaseMessage(err, "Error al registrarse."));
       } finally {
         setLoading("registerBtn", "registerBtnText", "registerSpinner", false, "Crear cuenta");
       }
