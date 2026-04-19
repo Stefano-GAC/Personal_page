@@ -58,6 +58,24 @@ export function requireAuth(redirectTo = "login.html") {
 }
 
 // ----------------------------------------------------------
+//  Guardia inversa: solo invitados.
+//  Si hay sesión activa, redirige (por defecto a index.html).
+// ----------------------------------------------------------
+export function requireGuest(redirectTo = "index.html") {
+  return new Promise((resolve, reject) => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      unsubscribe();
+      if (user) {
+        window.location.href = redirectTo;
+        reject(new Error("Ya autenticado"));
+      } else {
+        resolve(null);
+      }
+    });
+  });
+}
+
+// ----------------------------------------------------------
 //  Escuchar cambios de estado de sesión (uso general)
 // ----------------------------------------------------------
 export function onSession(callback) {
