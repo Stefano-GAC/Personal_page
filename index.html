@@ -78,6 +78,11 @@
                 LinkedIn
               </a>
             </li>
+            <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
+              <button id="logoutBtn" class="btn btn-outline-danger btn-sm" style="font-weight:600">
+                <i class="fa-solid fa-arrow-right-from-bracket me-1"></i>Salir
+              </button>
+            </li>
             <li class="nav-item d-flex align-items-center ms-lg-3 mt-2 mt-lg-0">
               <!-- Selector visual de idioma. Estado activo via clase .active desde script.js -->
               <div class="language-switch" role="group" aria-label="Selector de idioma">
@@ -411,6 +416,17 @@
       - visibilidad back to top
     -->
     <script src="script.js"></script>
+
+    <!-- Guardia de autenticación Firebase -->
+    <script type="module">
+      import { requireAuth, logout } from "./auth.js";
+
+      // Redirige a login si no hay sesión activa
+      requireAuth().catch(() => {});
+
+      // Botón de cerrar sesión
+      document.getElementById("logoutBtn").addEventListener("click", () => logout());
+    </script>
 
   </body>
 

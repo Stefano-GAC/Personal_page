@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Acceso | Stefano Campos</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- Estilos de login -->
+  <link rel="stylesheet" href="login.css" />
+</head>
+<body class="login-body">
+
+  <div class="login-wrapper">
+    <div class="login-card">
+
+      <!-- Encabezado -->
+      <div class="login-header">
+        <div class="login-avatar">
+          <i class="fa-solid fa-user-tie"></i>
+        </div>
+        <h1 class="login-title">Bienvenido</h1>
+      </div>
+
+      <!-- Tabs: Iniciar sesión / Registrarse -->
+      <ul class="nav nav-pills auth-tabs mb-4" id="authTabs" role="tablist">
+        <li class="nav-item flex-fill" role="presentation">
+          <button class="nav-link active w-100" id="tab-login" data-bs-toggle="pill"
+            data-bs-target="#panel-login" type="button" role="tab" aria-selected="true">
+            Iniciar sesión
+          </button>
+        </li>
+        <li class="nav-item flex-fill" role="presentation">
+          <button class="nav-link w-100" id="tab-register" data-bs-toggle="pill"
+            data-bs-target="#panel-register" type="button" role="tab" aria-selected="false">
+            Registrarse
+          </button>
+        </li>
+      </ul>
+
+      <div class="tab-content">
+
+        <!-- ── PANEL LOGIN ── -->
+        <div class="tab-pane fade show active" id="panel-login" role="tabpanel">
+
+          <div id="loginAlert" class="alert d-none mb-3" role="alert">
+            <i class="fa-solid fa-circle-exclamation me-2"></i>
+            <span id="loginAlertMsg"></span>
+          </div>
+
+          <form id="loginForm" novalidate>
+
+            <div class="mb-3">
+              <label for="loginEmail" class="form-label">Correo electrónico</label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="fa-solid fa-envelope"></i></span>
+                <input type="email" id="loginEmail" class="form-control"
+                  placeholder="correo@ejemplo.com" required autocomplete="email" />
+              </div>
+            </div>
+
+            <div class="mb-4">
+              <label for="loginPassword" class="form-label">Contraseña</label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
+                <input type="password" id="loginPassword" class="form-control"
+                  placeholder="••••••••" required autocomplete="current-password" />
+                <button type="button" class="btn btn-outline-secondary toggle-password"
+                  data-target="loginPassword" data-icon="eyeIconLogin" tabindex="-1"
+                  aria-label="Mostrar/ocultar contraseña">
+                  <i class="fa-solid fa-eye" id="eyeIconLogin"></i>
+                </button>
+              </div>
+            </div>
+
+            <button type="submit" id="loginBtn" class="btn btn-login w-100">
+              <span id="loginBtnText">Iniciar sesión</span>
+              <span id="loginSpinner" class="spinner-border spinner-border-sm ms-2 d-none" role="status"></span>
+            </button>
+
+          </form>
+        </div>
+        <!-- ── FIN PANEL LOGIN ── -->
+
+        <!-- ── PANEL REGISTRO ── -->
+        <div class="tab-pane fade" id="panel-register" role="tabpanel">
+
+          <div id="registerAlert" class="alert d-none mb-3" role="alert">
+            <i class="fa-solid fa-circle-info me-2"></i>
+            <span id="registerAlertMsg"></span>
+          </div>
+
+          <form id="registerForm" novalidate>
+
+            <div class="mb-3">
+              <label for="registerName" class="form-label">Nombre</label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="fa-solid fa-user"></i></span>
+                <input type="text" id="registerName" class="form-control"
+                  placeholder="Tu nombre" autocomplete="name" />
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="registerEmail" class="form-label">Correo electrónico</label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="fa-solid fa-envelope"></i></span>
+                <input type="email" id="registerEmail" class="form-control"
+                  placeholder="correo@ejemplo.com" required autocomplete="email" />
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="registerPassword" class="form-label">Contraseña</label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
+                <input type="password" id="registerPassword" class="form-control"
+                  placeholder="Mínimo 6 caracteres" required autocomplete="new-password" minlength="6" />
+                <button type="button" class="btn btn-outline-secondary toggle-password"
+                  data-target="registerPassword" data-icon="eyeIconReg" tabindex="-1"
+                  aria-label="Mostrar/ocultar contraseña">
+                  <i class="fa-solid fa-eye" id="eyeIconReg"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="mb-4">
+              <label for="registerPassword2" class="form-label">Confirmar contraseña</label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
+                <input type="password" id="registerPassword2" class="form-control"
+                  placeholder="Repite la contraseña" required autocomplete="new-password" />
+                <button type="button" class="btn btn-outline-secondary toggle-password"
+                  data-target="registerPassword2" data-icon="eyeIconReg2" tabindex="-1"
+                  aria-label="Mostrar/ocultar contraseña">
+                  <i class="fa-solid fa-eye" id="eyeIconReg2"></i>
+                </button>
+              </div>
+            </div>
+
+            <button type="submit" id="registerBtn" class="btn btn-login w-100">
+              <span id="registerBtnText">Crear cuenta</span>
+              <span id="registerSpinner" class="spinner-border spinner-border-sm ms-2 d-none" role="status"></span>
+            </button>
+
+          </form>
+        </div>
+        <!-- ── FIN PANEL REGISTRO ── -->
+
+      </div><!-- /tab-content -->
+    </div><!-- /login-card -->
+
+    <p class="login-footer-text">
+      &copy; <span id="loginYear"></span> Stefano Campos
+    </p>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
+  <script type="module">
+    import { login, register, onSession } from "./auth.js";
+
+    // Redirigir si ya hay sesión activa
+    onSession((user) => {
+      if (user) window.location.href = "index.html";
+    });
+
+    // Año en footer
+    document.getElementById("loginYear").textContent = new Date().getFullYear();
+
+    // ── Toggle contraseña (genérico por data-target / data-icon) ──
+    document.querySelectorAll(".toggle-password").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const input = document.getElementById(btn.dataset.target);
+        const icon  = document.getElementById(btn.dataset.icon);
+        const hidden = input.type === "password";
+        input.type     = hidden ? "text" : "password";
+        icon.className = hidden ? "fa-solid fa-eye-slash" : "fa-solid fa-eye";
+      });
+    });
+
+    // ── Mensajes de error Firebase ──
+    const firebaseMessages = {
+      "auth/user-not-found":          "No existe una cuenta con ese correo.",
+      "auth/wrong-password":          "Contraseña incorrecta.",
+      "auth/invalid-email":           "El correo no tiene un formato válido.",
+      "auth/too-many-requests":       "Demasiados intentos. Intenta más tarde.",
+      "auth/network-request-failed":  "Error de red. Verifica tu conexión.",
+      "auth/invalid-credential":      "Credenciales inválidas.",
+      "auth/email-already-in-use":    "Ya existe una cuenta con ese correo.",
+      "auth/weak-password":           "La contraseña es demasiado débil (mínimo 6 caracteres).",
+    };
+
+    function showAlert(divId, msgId, text, type = "danger") {
+      const div = document.getElementById(divId);
+      div.className = `alert alert-${type} mb-3`;
+      document.getElementById(msgId).textContent = text;
+    }
+
+    function hideAlert(divId) {
+      document.getElementById(divId).classList.add("d-none");
+    }
+
+    function setLoading(btnId, textId, spinnerId, loading, defaultText) {
+      const btn = document.getElementById(btnId);
+      btn.disabled = loading;
+      document.getElementById(textId).textContent = loading ? "Procesando…" : defaultText;
+      document.getElementById(spinnerId).classList.toggle("d-none", !loading);
+    }
+
+    // ── Formulario de LOGIN ──
+    document.getElementById("loginForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email    = document.getElementById("loginEmail").value.trim();
+      const password = document.getElementById("loginPassword").value;
+
+      hideAlert("loginAlert");
+      setLoading("loginBtn", "loginBtnText", "loginSpinner", true);
+
+      try {
+        await login(email, password);
+        window.location.href = "index.html";
+      } catch (err) {
+        showAlert("loginAlert", "loginAlertMsg", firebaseMessages[err.code] || "Error al iniciar sesión.");
+      } finally {
+        setLoading("loginBtn", "loginBtnText", "loginSpinner", false, "Iniciar sesión");
+      }
+    });
+
+    // ── Formulario de REGISTRO ──
+    document.getElementById("registerForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const name  = document.getElementById("registerName").value.trim();
+      const email = document.getElementById("registerEmail").value.trim();
+      const pass1 = document.getElementById("registerPassword").value;
+      const pass2 = document.getElementById("registerPassword2").value;
+
+      hideAlert("registerAlert");
+
+      if (pass1 !== pass2) {
+        showAlert("registerAlert", "registerAlertMsg", "Las contraseñas no coinciden.");
+        return;
+      }
+
+      setLoading("registerBtn", "registerBtnText", "registerSpinner", true);
+
+      try {
+        await register(email, pass1, name);
+        showAlert("registerAlert", "registerAlertMsg", "¡Cuenta creada! Redirigiendo…", "success");
+        setTimeout(() => { window.location.href = "index.html"; }, 1200);
+      } catch (err) {
+        showAlert("registerAlert", "registerAlertMsg", firebaseMessages[err.code] || "Error al registrarse.");
+      } finally {
+        setLoading("registerBtn", "registerBtnText", "registerSpinner", false, "Crear cuenta");
+      }
+    });
+  </script>
+</body>
+</html>

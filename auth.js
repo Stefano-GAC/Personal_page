@@ -1,0 +1,65 @@
+// ============================================================
+//  LÓGICA DE AUTENTICACIÓN (Firebase Auth — Email / Password)
+// ============================================================
+
+import { auth } from "./firebase-config.js";
+import {
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  updateProfile,
+  signOut,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js";
+
+// ----------------------------------------------------------
+//  Iniciar sesión
+// ----------------------------------------------------------
+export async function login(email, password) {
+  const userCredential = await signInWithEmailAndPassword(auth, email, password);
+  return userCredential.user;
+}
+
+// ----------------------------------------------------------
+//  Registrar nuevo usuario
+// ----------------------------------------------------------
+export async function register(email, password, displayName = "") {
+  const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+  if (displayName) {
+    await updateProfile(userCredential.user, { displayName });
+  }
+  return userCredential.user;
+}
+
+// ----------------------------------------------------------
+//  Cerrar sesión
+// ----------------------------------------------------------
+export async function logout() {
+  await signOut(auth);
+  window.location.href = "login.html";
+}
+
+// ----------------------------------------------------------
+//  Guardia de ruta: redirige a login si no hay sesión activa.
+//  Úsala en index.html importando este módulo y llamando
+//  requireAuth()  al principio del script de la página.
+// ----------------------------------------------------------
+export function requireAuth(redirectTo = "login.html") {
+  return new Promise((resolve, reject) => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      unsubscribe();
+      if (user) {
+        resolve(user);
+      } else {
+        window.location.href = redirectTo;
+        reject(new Error("No autenticado"));
+      }
+    });
+  });
+}
+
+// ----------------------------------------------------------
+//  Escuchar cambios de estado de sesión (uso general)
+// ----------------------------------------------------------
+export function onSession(callback) {
+  return onAuthStateChanged(auth, callback);
+}
