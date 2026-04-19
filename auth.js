@@ -38,6 +38,19 @@ export async function logout() {
   window.location.href = "login.html";
 }
 
+function buildLoginRedirectUrl(redirectTo) {
+  try {
+    const loginUrl = new URL(redirectTo, window.location.href);
+    const nextPath = `${window.location.pathname}${window.location.search}${window.location.hash}`;
+    if (!loginUrl.searchParams.get("next")) {
+      loginUrl.searchParams.set("next", nextPath);
+    }
+    return loginUrl.href;
+  } catch {
+    return redirectTo;
+  }
+}
+
 // ----------------------------------------------------------
 //  Guardia de ruta: redirige a login si no hay sesión activa.
 //  Úsala en index.html importando este módulo y llamando
@@ -50,7 +63,7 @@ export function requireAuth(redirectTo = "login.html") {
       if (user) {
         resolve(user);
       } else {
-        window.location.href = redirectTo;
+        window.location.href = buildLoginRedirectUrl(redirectTo);
         reject(new Error("No autenticado"));
       }
     });

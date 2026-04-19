@@ -166,8 +166,29 @@
   <script type="module">
     import { login, register, requireGuest } from "./auth.js";
 
+    function resolveNextUrl() {
+      const rawNext = new URLSearchParams(window.location.search).get("next");
+      if (!rawNext) {
+        return "index.html";
+      }
+
+      try {
+        const nextUrl = new URL(rawNext, window.location.origin);
+        const isSameOrigin = nextUrl.origin === window.location.origin;
+        const isLoginPage = nextUrl.pathname.endsWith("/login.html") || nextUrl.pathname.endsWith("login.html");
+        if (!isSameOrigin || isLoginPage) {
+          return "index.html";
+        }
+        return `${nextUrl.pathname}${nextUrl.search}${nextUrl.hash}`;
+      } catch {
+        return "index.html";
+      }
+    }
+
+    const nextUrl = resolveNextUrl();
+
     // Mostrar login solo si no hay sesión activa.
-    requireGuest()
+    requireGuest(nextUrl)
       .then(() => { document.body.style.visibility = "visible"; })
       .catch(() => {});
 
@@ -241,7 +262,7 @@
 
       try {
         await login(email, password);
-        window.location.href = "index.html";
+        window.location.href = nextUrl;
       } catch (err) {
         showAlert("loginAlert", "loginAlertMsg", getFirebaseMessage(err, "Error al iniciar sesión."));
       } finally {
@@ -278,7 +299,7 @@
       try {
         await register(email, pass1, name);
         showAlert("registerAlert", "registerAlertMsg", "¡Cuenta creada! Redirigiendo…", "success");
-        setTimeout(() => { window.location.href = "index.html"; }, 1200);
+        setTimeout(() => { window.location.href = nextUrl; }, 1200);
       } catch (err) {
         showAlert("registerAlert", "registerAlertMsg", getFirebaseMessage(err, "Error al registrarse."));
       } finally {
