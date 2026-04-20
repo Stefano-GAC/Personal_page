@@ -410,6 +410,7 @@
     <!-- Guardia de autenticación Firebase -->
     <script type="module">
       import { requireAuth, logout } from "./auth.js";
+      import { logVisit } from "./firestore-logs.js";
 
       function loadPrivateScript() {
         const script = document.createElement("script");
@@ -420,7 +421,12 @@
       // Redirige a login si no hay sesión activa.
       // Si hay sesión, revela la página y recién ahí carga script.js.
       requireAuth()
-        .then(() => {
+        .then(async (user) => {
+          try {
+            await logVisit({ user, page: "index" });
+          } catch (_) {
+            // No bloquear la UX por fallos de analítica/logs.
+          }
           document.body.style.visibility = "visible";
           loadPrivateScript();
         })
