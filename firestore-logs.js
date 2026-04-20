@@ -42,3 +42,22 @@ export async function logOutboundMessage({
 
   await addDoc(collection(db, "outbound_messages"), payload);
 }
+
+export async function logBriefAction({
+  user = null,
+  action = "",
+  summaryLength = 0,
+  page = "brief"
+} = {}) {
+  const payload = {
+    uid: user?.uid || null,
+    email: user?.email || null,
+    displayName: user?.displayName || null,
+    page,
+    action,
+    summaryLength,
+    createdAt: serverTimestamp()
+  };
+
+  await addDoc(collection(db, "brief_events"), payload);
+}
