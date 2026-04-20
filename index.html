@@ -37,6 +37,10 @@
 
 </head>
 
+  <!--
+    El body inicia oculto para evitar "flash" de contenido privado.
+    Solo se vuelve visible cuando requireAuth confirma sesion valida.
+  -->
   <body class="bg-light text-dark" style="visibility:hidden">
 
     <!--
@@ -413,6 +417,7 @@
       import { logVisit } from "./firestore-logs.js";
 
       function loadPrivateScript() {
+        // Se inyecta script.js dinamicamente para que no ejecute si no hay sesion.
         const script = document.createElement("script");
         script.src = "script.js";
         document.body.appendChild(script);
@@ -423,13 +428,17 @@
       requireAuth()
         .then(async (user) => {
           try {
+            // Guarda evento de visita autenticada en Firestore.
             await logVisit({ user, page: "index" });
           } catch (_) {
             // No bloquear la UX por fallos de analítica/logs.
           }
+          // A partir de aqui el usuario ya esta autorizado.
           document.body.style.visibility = "visible";
+          // Carga toda la UI interactiva (i18n, cards, chat, etc).
           loadPrivateScript();
         })
+        // En caso de no autenticado, requireAuth ya redirige a login.
         .catch(() => {});
 
       // Botón de cerrar sesión

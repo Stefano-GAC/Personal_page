@@ -18,13 +18,19 @@ export async function upsertUserProfile(user) {
 
   const userRef = doc(db, "users", user.uid);
   const baseData = {
+    // UID canonico de Firebase Auth (clave de integracion entre servicios).
     uid: user.uid,
+    // Email confirmado por Authentication (si existe en proveedor).
     email: user.email || null,
+    // Nombre de visualizacion usado por UI.
     displayName: user.displayName || null,
+    // Marca de tiempo de ultimo acceso exitoso.
     lastLoginAt: serverTimestamp(),
+    // Marca tecnica de ultima actualizacion de documento.
     updatedAt: serverTimestamp()
   };
 
+  // merge evita sobrescribir campos no enviados.
   await setDoc(userRef, baseData, { merge: true });
 }
 
@@ -38,11 +44,13 @@ export async function createUserProfile(user) {
   await setDoc(
     userRef,
     {
+      // Repite estructura base para dejar documento consistente desde el alta.
       uid: user.uid,
       email: user.email || null,
       displayName: user.displayName || null,
       lastLoginAt: serverTimestamp(),
       updatedAt: serverTimestamp(),
+      // Timestamp de creacion logica del perfil.
       createdAt: serverTimestamp()
     },
     { merge: true }

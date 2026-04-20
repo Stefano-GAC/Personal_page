@@ -12,6 +12,10 @@
   <link rel="stylesheet" href="style.css">
 </head>
 
+<!--
+  Mismo patron de seguridad que index.html:
+  oculto por defecto hasta que Firebase confirme sesion.
+-->
 <body class="bg-light text-dark arcade-mode" style="visibility:hidden">
   <header class="hero-gradient d-flex align-items-center" style="min-height: 44vh;">
     <div class="hero-orb orb-a" aria-hidden="true"></div>
@@ -106,19 +110,24 @@
     import { logBriefAction, logOutboundMessage, logVisit } from "./firestore-logs.js";
 
     function loadPrivateBriefScript() {
+      // brief.js contiene i18n y logica funcional del formulario.
+      // Se carga solo para usuarios autenticados.
       const script = document.createElement("script");
       script.src = "brief.js";
       document.body.appendChild(script);
     }
 
+    // Puerta de acceso principal de la vista brief.
     requireAuth()
       .then(async (user) => {
         try {
+          // Evento base: el usuario ingreso a brief.
           await logVisit({ user, page: "brief" });
         } catch (_) {
           // No bloquear la UX por fallos de analítica/logs.
         }
 
+        // Evento de salida a WhatsApp. Se registra longitud del resumen enviado.
         const sendBriefBtn = document.getElementById("sendBriefWhatsapp");
         sendBriefBtn?.addEventListener("click", () => {
           const summary = document.getElementById("briefSummary")?.value || "";
@@ -132,6 +141,8 @@
           });
         });
 
+        // Evento de embudo: usuario genero resumen.
+        // setTimeout(0) espera al ciclo siguiente para leer el textarea ya actualizado.
         const generateBriefBtn = document.getElementById("generateBrief");
         generateBriefBtn?.addEventListener("click", () => {
           setTimeout(() => {
@@ -147,11 +158,14 @@
           }, 0);
         });
 
+        // Render permitido tras validar sesion y registrar hooks.
         document.body.style.visibility = "visible";
         loadPrivateBriefScript();
       })
+      // Si no hay sesion, requireAuth ya redirige a login.
       .catch(() => {});
 
+    // Cierre de sesion explicito desde la vista brief.
     document.getElementById("briefLogoutBtn")?.addEventListener("click", () => logout());
   </script>
 </body>
