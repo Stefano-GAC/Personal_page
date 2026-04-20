@@ -11,6 +11,7 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
 
 export async function upsertUserProfile(user) {
+  // Se usa en login: actualiza metadatos de actividad sin tocar createdAt.
   if (!user?.uid) {
     throw new Error("Usuario inválido para upsertUserProfile");
   }
@@ -28,6 +29,7 @@ export async function upsertUserProfile(user) {
 }
 
 export async function createUserProfile(user) {
+  // Se usa en registro inicial: asegura createdAt en primera alta.
   if (!user?.uid) {
     throw new Error("Usuario inválido para createUserProfile");
   }

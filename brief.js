@@ -1,3 +1,13 @@
+// ============================================================
+//  MAPA DEL ARCHIVO (brief.js)
+//  1) Diccionario i18n de la pagina brief
+//  2) Referencias DOM y estado local
+//  3) Render de opciones y traducciones
+//  4) Generacion de resumen + enlace WhatsApp
+//  5) Inicializacion de eventos
+// ============================================================
+
+// Diccionario de textos solo para la pagina brief.
 const briefTranslations = {
   es: {
     title: "Asistente de Brief | Stefano Campos",
@@ -43,6 +53,7 @@ const briefTranslations = {
   }
 };
 
+// IDs cuyo texto se sustituye dinamicamente por idioma.
 const textIds = [
   "goBackLabel",
   "briefPageTitle",
@@ -65,10 +76,12 @@ const briefSummary = document.getElementById("briefSummary");
 const generateBrief = document.getElementById("generateBrief");
 const sendBriefWhatsapp = document.getElementById("sendBriefWhatsapp");
 
+// Estado local del modulo.
 let currentLang = localStorage.getItem("portfolioLanguage") || "es";
 let hasGenerated = false;
 
 function showToast(message) {
+  // Toast minimo para feedback de acciones del formulario.
   const toast = document.createElement("div");
   toast.textContent = message;
   toast.style.position = "fixed";
@@ -86,6 +99,7 @@ function showToast(message) {
 }
 
 function fillSelectOptions() {
+  // Rellena selects del formulario con el idioma activo.
   const t = briefTranslations[currentLang];
   const updateSelect = (select, options) => {
     if (!select) {
@@ -110,12 +124,14 @@ function fillSelectOptions() {
 }
 
 function getSelectedFeatures() {
+  // Obtiene features marcadas para componer el resumen.
   return Array.from(document.querySelectorAll('input[name="briefFeature"]:checked')).map(
     (input) => input.value
   );
 }
 
 function generateSummary() {
+  // Construye el texto final y actualiza el enlace WhatsApp.
   const t = briefTranslations[currentLang];
   const summary = t.briefTemplate
     .replace("{type}", briefType?.value || "")
@@ -133,6 +149,7 @@ function generateSummary() {
 }
 
 function clearSummary() {
+  // Restablece textarea y enlace si aun no se genero resumen.
   if (briefSummary) {
     briefSummary.value = "";
   }
@@ -142,6 +159,7 @@ function clearSummary() {
 }
 
 function applyLanguage(lang) {
+  // Aplica i18n completo y mantiene sincronizado el estado del formulario.
   currentLang = briefTranslations[lang] ? lang : "es";
   localStorage.setItem("portfolioLanguage", currentLang);
   const t = briefTranslations[currentLang];
@@ -182,4 +200,5 @@ document.getElementById("briefForm")?.addEventListener("change", () => {
   }
 });
 
+// Inicializacion del modulo.
 applyLanguage(currentLang);

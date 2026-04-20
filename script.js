@@ -1,3 +1,14 @@
+// ============================================================
+//  MAPA DEL ARCHIVO (script.js)
+//  1) Diccionario i18n ES/EN
+//  2) Referencias de DOM
+//  3) Estado global de UI
+//  4) Funciones de traduccion, typing y utilidades
+//  5) Modulos de interaccion (cards, brief, chat, scroll)
+//  6) Bootstrapping final
+// ============================================================
+
+// Diccionario central de textos visibles en interfaz.
 const translations = {
   es: {
     pageTitle: "Stefano Campos | Desarrollador Web",
@@ -167,6 +178,7 @@ const translations = {
   }
 };
 
+// IDs de elementos cuyo textContent se actualiza por idioma.
 const textIds = [
   "navAbout",
   "navProjects",
@@ -211,6 +223,7 @@ const textIds = [
 ];
 
 const typingElement = document.getElementById("typing");
+// Cache de nodos DOM para evitar busquedas repetitivas.
 const langEsBtn = document.getElementById("langEs");
 const langEnBtn = document.getElementById("langEn");
 const whatsappFloat = document.getElementById("whatsappFloat");
@@ -230,6 +243,7 @@ const chatSendBtn = document.getElementById("chatSendBtn");
 const cursorGlow = document.getElementById("cursorGlow");
 const backToTop = document.getElementById("backToTop");
 
+// Estado compartido entre modulos de la pagina.
 let typingTimer = null;
 let typingResetTimer = null;
 let typingIndex = 0;
@@ -239,6 +253,7 @@ let soundEnabled = false;
 let currentTheme = "arcade";
 
 function clearTypingTimers() {
+  // Limpia timers activos del efecto typing para prevenir duplicados.
   if (typingTimer) {
     clearTimeout(typingTimer);
     typingTimer = null;
@@ -250,6 +265,7 @@ function clearTypingTimers() {
 }
 
 function runTypingEffect() {
+  // Efecto maquina de escribir con reinicio automatico.
   if (!typingElement) {
     return;
   }
@@ -267,6 +283,7 @@ function runTypingEffect() {
 }
 
 function restartTyping(newText) {
+  // Reinicio seguro del typing al cambiar idioma.
   clearTypingTimers();
   typingText = newText;
   typingIndex = 0;
@@ -277,6 +294,7 @@ function restartTyping(newText) {
 }
 
 function playUiTick(freq = 460, duration = 0.06) {
+  // Feedback sonoro opcional de interacciones UI.
   if (!soundEnabled) {
     return;
   }
@@ -301,6 +319,7 @@ function updateThemeUi() {
 }
 
 function applySelectOptions() {
+  // Rellena selects del brief con opciones del idioma activo.
   const t = translations[currentLang];
   if (!briefType || !briefTimeline || !briefBudget) {
     return;
@@ -324,6 +343,7 @@ function applySelectOptions() {
 }
 
 function applyLanguage(lang) {
+  // Punto unico de i18n: titulos, labels, placeholders y textos de apoyo.
   const selectedLanguage = translations[lang] ? lang : "es";
   currentLang = selectedLanguage;
   const t = translations[selectedLanguage];
@@ -398,6 +418,7 @@ function applyLanguage(lang) {
 }
 
 function showChatLine(text, role = "bot") {
+  // Inserta una linea en el historial del mini chat.
   if (!chatOutput) {
     return;
   }
@@ -409,6 +430,7 @@ function showChatLine(text, role = "bot") {
 }
 
 function getChatReply(question) {
+  // Matching simple por palabras clave para responder sin backend.
   const normalized = question.toLowerCase();
   const t = translations[currentLang];
 
@@ -457,6 +479,7 @@ function getSelectedFeatures() {
 }
 
 function buildBriefSummary() {
+  // Compone mensaje final del brief y actualiza enlace de WhatsApp.
   const t = translations[currentLang];
   const features = getSelectedFeatures();
   const summary = t.briefTemplate
@@ -501,6 +524,7 @@ function launchProjectDemo(projectKey) {
 }
 
 function initProjectCards() {
+  // Inicializa flip-cards, lazy iframe y boton demo por proyecto.
   document.querySelectorAll(".project-flip").forEach((card) => {
     const previewBtn = card.querySelector(".preview-btn");
     const backBtn = card.querySelector(".back-btn");
@@ -604,6 +628,7 @@ function initThemeAndSound() {
 }
 
 function initBriefAssistant() {
+  // Modulo de brief embebido: no se activa si el bloque no existe.
   if (!briefForm || !generateBriefBtn) {
     return;
   }
@@ -617,6 +642,7 @@ function initBriefAssistant() {
 }
 
 function initMiniChat() {
+  // Inicializa eventos de apertura, envio y sugerencias del mini chat.
   if (!miniChat || !miniChatToggle || !chatInput || !chatSendBtn) {
     return;
   }
@@ -661,6 +687,7 @@ if (langEnBtn) {
 }
 
 const initialLanguage = localStorage.getItem("portfolioLanguage") || "es";
+// Bootstrapping secuencial de todos los modulos de UI.
 applyLanguage(initialLanguage);
 initThemeAndSound();
 initProjectCards();

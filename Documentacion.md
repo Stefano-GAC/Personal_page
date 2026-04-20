@@ -1,318 +1,332 @@
 # Documentacion Tecnica - Personal Page
 
-Esta documentacion describe en detalle el estado actual del portfolio para que cualquier programador pueda continuar el trabajo sin depender de contexto oral.
+Este documento describe el estado real del proyecto despues de integrar autenticacion con Firebase y trazabilidad en Firestore.
 
-## 1. Objetivo del proyecto
+## 1. Objetivo funcional actual
 
-Sitio web personal estatico orientado a mostrar perfil profesional y proyectos destacados.
+El sitio ya no es solo un portfolio estatico.
+Ahora incluye:
 
-Objetivos funcionales actuales:
+1. Acceso con inicio de sesion y registro (Firebase Authentication).
+2. Proteccion de rutas privadas (`index.html` y `brief.html`).
+3. Persistencia de datos de usuario y eventos en Firestore.
+4. Seguimiento de actividad para analitica basica (visitas, generacion de brief, envio por WhatsApp).
 
-1. Presentar informacion personal en formato claro y responsive.
-2. Mostrar proyectos con una vista previa interactiva (flip + iframe lazy load).
-3. Permitir cambio de idioma (ES/EN) en tiempo real.
-4. Facilitar contacto externo (LinkedIn, GitHub, WhatsApp).
+## 2. Stack tecnico actualizado
 
-## 2. Stack tecnico
+1. HTML5 + CSS3 + JavaScript Vanilla.
+2. Bootstrap 5, Font Awesome, Animate.css, Google Fonts (CDN).
+3. Firebase Web SDK 10.11.0 (modulos ES por CDN):
+   - `firebase-app`
+   - `firebase-auth`
+   - `firebase-firestore`
+4. Firestore como base de datos NoSQL para eventos y perfiles.
+5. Hosting actual: GitHub Pages (frontend estatico).
 
-1. HTML5: estructura semantica de layout y contenido.
-2. CSS3: estilos personalizados, animaciones y capas visuales.
-3. JavaScript Vanilla: logica de traducciones, efectos y eventos.
-4. Bootstrap 5 (CDN): layout base responsive y utilidades UI.
-5. Font Awesome (CDN): iconografia.
-6. Animate.css (CDN): animaciones puntuales en modal.
-7. Google Fonts (CDN): tipografia Montserrat.
-
-## 3. Estructura del repositorio
+## 3. Estructura actual del repositorio
 
 ```text
 Personal_page/
 |- index.html
+|- brief.html
+|- login.html
 |- style.css
+|- login.css
 |- script.js
-|- README.md
+|- brief.js
+|- firebase-config.js
+|- auth.js
+|- firestore-users.js
+|- firestore-logs.js
 |- Documentacion.md
+|- README.md
 `- Img/
-   |- perfil.jpeg
-   `- fondo.jpg (presente en carpeta, actualmente no referenciado de forma directa en index)
 ```
 
-Descripcion por archivo:
+## 4. Descripcion detallada por archivo
 
-1. index.html: pagina principal con todas las secciones visibles.
-2. style.css: capa visual completa (variables, animaciones, responsive).
-3. script.js: comportamiento interactivo y traducciones.
-4. Documentacion.md: manual tecnico de continuidad.
-5. README.md: marcador simple (puede ampliarse en el futuro).
+### 4.1 `firebase-config.js`
 
-## 4. Flujo de ejecucion
+Responsabilidad:
 
-1. El navegador carga index.html.
-2. Se cargan estilos CDN + style.css.
-3. Se renderiza estructura completa (navbar, hero, proyectos, footer, modal).
-4. Se ejecuta script.js al final del body.
-5. script.js aplica idioma inicial desde localStorage.
-6. Se activa efecto typing segun idioma.
-7. Se registran listeners para botones de idioma, cards y scroll.
+1. Inicializar Firebase App.
+2. Inicializar Authentication.
+3. Inicializar Firestore.
+4. Exportar instancias compartidas (`auth`, `db`).
 
-No hay backend ni llamadas a API internas. Todo ocurre del lado del cliente.
+Detalle interno:
 
-## 5. Arquitectura de index.html
+1. `firebaseConfig` contiene llaves del proyecto web.
+2. `initializeApp(firebaseConfig)` crea la app base.
+3. `getAuth(app)` expone el servicio de login.
+4. `getFirestore(app)` expone la base de datos.
 
-### 5.1 Head
+### 4.2 `auth.js`
 
-Incluye:
+Responsabilidad:
 
-1. Metadatos basicos (charset + viewport).
-2. CDN de Bootstrap CSS.
-3. CDN de Font Awesome.
-4. Fuente Montserrat desde Google Fonts.
-5. Animate.css.
-6. Hoja local style.css.
+1. Centralizar todo el flujo de sesion.
+2. Exponer funciones reutilizables para login/registro/logout.
+3. Resolver guardias de ruta en paginas protegidas y en login.
 
-### 5.2 Navbar
+Funciones:
 
-Responsabilidades:
+1. `login(email, password)`:
+   - autentica con `signInWithEmailAndPassword`.
+   - actualiza perfil en Firestore (`upsertUserProfile`).
+2. `register(email, password, displayName)`:
+   - crea cuenta con `createUserWithEmailAndPassword`.
+   - actualiza nombre publico con `updateProfile`.
+   - crea documento inicial en Firestore (`createUserProfile`).
+3. `logout()`:
+   - cierra sesion y redirige a `login.html`.
+4. `requireAuth(redirectTo)`:
+   - permite continuar solo si hay usuario autenticado.
+   - si no hay sesion, redirige a login con parametro `next`.
+5. `requireGuest(redirectTo)`:
+   - permite acceso solo si NO hay sesion.
+   - si ya hay sesion, redirige a la ruta objetivo.
+6. `onSession(callback)`:
+   - listener de cambios de autenticacion.
 
-1. Branding (SGAC + foto de perfil clickable).
-2. Navegacion interna por anclas (#sobre-mi, #proyectos).
-3. CTA externo a LinkedIn.
-4. Selector de idioma ES/EN.
+Implementacion relevante:
 
-Notas de implementacion:
+1. `buildLoginRedirectUrl()` agrega `next` para volver a la pagina original tras login.
+2. Todas las guardias dependen de `onAuthStateChanged`.
 
-1. Navbar fija con fixed-top.
-2. Modo colapsable en pantallas pequenas via bootstrap navbar-toggler.
-3. Imagen de perfil abre modal usando data-bs-toggle y data-bs-target.
+### 4.3 `firestore-users.js`
 
-### 5.3 Hero
+Responsabilidad:
 
-Contiene:
+1. Escribir perfil de usuario en coleccion `users`.
+2. Separar alta inicial de actualizacion por login.
 
-1. Foto de perfil (abre modal).
-2. Nombre principal.
-3. Texto dinamico typing con id typing.
-4. Botones externos a GitHub y LinkedIn.
+Funciones:
 
-### 5.4 Seccion Sobre mi
+1. `createUserProfile(user)`:
+   - crea/mergea documento `users/{uid}`.
+   - incluye `createdAt`, `updatedAt`, `lastLoginAt`.
+2. `upsertUserProfile(user)`:
+   - actualiza `lastLoginAt` y `updatedAt` sin forzar `createdAt`.
 
-1. Titulo traducible (id aboutTitle).
-2. Parrafo traducible (id aboutText).
-3. Decoracion visual con borde lateral.
+Campos persistidos:
 
-### 5.5 Seccion Proyectos
+1. `uid`
+2. `email`
+3. `displayName`
+4. `createdAt`
+5. `updatedAt`
+6. `lastLoginAt`
 
-Cada proyecto usa estructura flip:
+### 4.4 `firestore-logs.js`
 
-1. Cara frontal:
-   - Titulo + icono.
-   - Badge de tecnologia.
-   - Descripcion corta traducible.
-   - Boton Preview.
-2. Cara trasera:
-   - Barra superior con dominio interno + botones.
-   - Boton Volver (deshace flip).
-   - Boton Ver completo (abre proyecto externo).
-   - Iframe que se carga de forma lazy con data-src.
+Responsabilidad:
 
-Proyectos actuales mapeados:
+1. Guardar trazas de comportamiento del usuario.
 
-1. Pong Galactico.
-2. Netflix Clone.
-3. NeonDrive.
-4. API Pokemon.
+Funciones:
 
-### 5.6 Botones flotantes y footer
+1. `logVisit({ user, page, source })`:
+   - coleccion: `visits`.
+   - guarda usuario + pagina + agente de navegador + fecha.
+2. `logOutboundMessage({ user, page, channel, contentLength })`:
+   - coleccion: `outbound_messages`.
+   - registra envios externos (actualmente WhatsApp).
+3. `logBriefAction({ user, action, summaryLength, page })`:
+   - coleccion: `brief_events`.
+   - registra acciones del brief (ej: `generate_summary`).
 
-1. Back to top (id backToTop): aparece al hacer scroll.
-2. WhatsApp flotante (id whatsappFloat): enlace directo con etiqueta contextual.
-3. Footer con texto traducible e iconos sociales.
+### 4.5 `login.html`
 
-### 5.7 Modal de perfil
+Responsabilidad:
 
-1. Modal Bootstrap centrado.
-2. Imagen ampliada con animaciones de entrada/glow.
-
-## 6. Arquitectura de style.css
-
-El archivo mezcla 4 capas importantes:
-
-1. Sistema de tokens (variables CSS en :root).
-2. Estilos de componentes (navbar, hero, flip-cards, modal, botones).
-3. Animaciones (@keyframes y efectos hover).
-4. Ajustes responsive (media query <= 576px).
-
-### 6.1 Variables principales
-
-1. --primary-color: azul de marca.
-2. --secondary-color: verde secundario.
-3. --accent-color: acento ambar.
-4. Variables de fondo, texto y bordes para consistencia.
-
-### 6.2 Componentes relevantes
-
-1. .language-switch y .lang-btn: control visual del idioma activo.
-2. .hero-gradient: fondo animado del hero.
-3. .flip-card / .flip-card-inner / .flip-card-front / .flip-card-back: motor visual del flip.
-4. .project-iframe: vista previa escalada (simulacion de mini navegador).
-5. .whatsapp-float: CTA fija con animacion de pulso.
-6. .profile-modal-img: glow animado en modal.
-
-### 6.3 Animaciones definidas
-
-1. slideDown: entrada del navbar.
-2. fadeInUp: entrada del bloque hero.
-3. gradientMove: desplazamiento del gradiente principal.
-4. whatsappPulse: anillo animado del boton flotante.
-5. pulse: latido de badges.
-6. pulse-bg / glowPulse: fondo e imagen del modal.
-
-## 7. Arquitectura de script.js
-
-### 7.1 Internacionalizacion (i18n local)
-
-Objeto central: translations con claves es y en.
-
-Responsabilidades:
-
-1. Definir textos de interfaz por idioma.
-2. Actualizar contenido por id en DOM.
-3. Actualizar etiquetas de botones dinamicos.
-4. Persistir idioma seleccionado en localStorage (portfolioLanguage).
-
-Funciones clave:
-
-1. applyLanguage(lang): aplica traduccion completa.
-2. restartTyping(newText): reinicia typing con el texto del idioma.
-
-### 7.2 Typing effect
+1. Pantalla de autenticacion (login + registro en tabs).
+2. Guardar feedback de errores Firebase al usuario.
+3. Respetar redirect `next` para volver a la pagina solicitada.
 
 Flujo:
 
-1. Escribe caracter por caracter en #typing.
-2. Espera 1 segundo al completar.
-3. Limpia y reinicia ciclo.
+1. La pagina inicia oculta (`visibility:hidden`).
+2. `requireGuest(nextUrl)` decide si mostrar login o redirigir.
+3. Formulario login:
+   - valida campos.
+   - llama `login()`.
+   - redirige a `nextUrl`.
+4. Formulario registro:
+   - valida email/password/confirmacion.
+   - llama `register()`.
+   - redirige a `nextUrl`.
 
-Control de estado:
+UX incluida:
 
-1. typingTimer: setTimeout principal.
-2. typingResetTimer: timeout de reinicio.
-3. clearTypingTimers(): evita timers duplicados al cambiar idioma.
+1. Toggle mostrar/ocultar contrasena.
+2. Spinners de carga en botones.
+3. Mensajes de error mapeados por `err.code`.
 
-### 7.3 Flip cards de proyectos
+### 4.6 `index.html`
 
-Flujo al hacer click en Preview:
+Responsabilidad:
 
-1. Agrega clase is-flipped a la card.
-2. Detecta iframe dentro de la card.
-3. Si iframe no fue cargado, asigna src desde data-src.
-4. Al completar carga, agrega clase loaded para fade-in.
+1. Pagina principal privada.
+2. Cargar logica visual solo cuando auth esta validada.
 
-Flujo al hacer click en Volver:
+Flujo de guardia:
 
-1. Quita clase is-flipped.
+1. Body inicia oculto.
+2. `requireAuth()`:
+   - si no hay sesion, redirige a `login.html?next=...`.
+   - si hay sesion:
+     - registra visita (`logVisit` con `page: "index"`).
+     - muestra body.
+     - carga dinamicamente `script.js`.
 
-### 7.4 Scroll behavior
+Boton salir:
 
-1. IntersectionObserver para elementos .hidden (si existen).
-2. Control de visibilidad del boton back to top al superar 200px.
-3. Scroll suave al inicio cuando se pulsa back to top.
+1. `#logoutBtn` llama `logout()`.
 
-## 8. Convenciones y decisiones de implementacion
+### 4.7 `brief.html`
 
-1. Se prioriza estructura semantica y ids descriptivos para traduccion.
-2. Se usa Bootstrap para grid/base y CSS propio para identidad visual.
-3. Se evita dependencia de frameworks JS para mantener simplicidad.
-4. Se usa carga lazy de iframes para reducir carga inicial de red.
+Responsabilidad:
 
-## 9. Como extender el proyecto
+1. Pagina privada del asistente de brief.
+2. Registrar uso funcional (visita, generar resumen, enviar WhatsApp).
 
-### 9.1 Agregar un nuevo proyecto al grid
+Flujo de guardia:
 
-Pasos:
+1. Body inicia oculto.
+2. `requireAuth()` valida sesion.
+3. Si sesion valida:
+   - `logVisit({ page: "brief" })`.
+   - registra click de `#generateBrief` en `brief_events`.
+   - registra click de `#sendBriefWhatsapp` en `outbound_messages`.
+   - carga dinamicamente `brief.js`.
 
-1. Duplicar un bloque .col dentro de #proyectos.
-2. Cambiar titulo, descripcion y enlaces.
-3. Definir un nuevo id de descripcion (ej: projectDesc5).
-4. Agregar texto projectDesc5 en translations.es y translations.en.
-5. Incluir el id en el array textIds para que aplique traduccion.
+### 4.8 `script.js`
 
-### 9.2 Agregar nuevas traducciones
+Responsabilidad:
 
-Pasos:
+1. Logica completa de UI de `index.html`.
 
-1. Crear nueva clave en translations (ej: fr).
-2. Replicar todas las llaves requeridas.
-3. Agregar boton de idioma en HTML.
-4. Registrar listener en JS.
+Bloques funcionales:
 
-### 9.3 Agregar nueva seccion
+1. `translations`: i18n ES/EN para textos visibles.
+2. Typing effect del hero (`runTypingEffect`, `restartTyping`).
+3. Cambio de idioma (`applyLanguage`).
+4. Flip cards de proyectos y lazy load de iframes.
+5. Mini chat de respuestas predefinidas.
+6. Asistente de brief embebido (cuando existe en el DOM).
+7. Scroll behavior, cursor glow y parallax.
+8. Inicializacion final de todos los modulos UI.
 
-Pasos:
+### 4.9 `brief.js`
 
-1. Crear bloque semantico en index.html.
-2. Estilizar en style.css usando variables existentes.
-3. Si tiene texto traducible, asignar id y registrar en translations + textIds.
+Responsabilidad:
 
-## 10. Riesgos tecnicos y puntos de mejora
+1. Logica especifica de la pagina brief.
 
-1. Integridad CDN: los valores integrity estan con placeholder (sha384-***). Conviene usar hashes reales o quitar integrity para evitar falsos bloqueos.
-2. Algunas llaves de traduccion de detalle tecnico (projectBackXa) existen en JS pero no tienen nodos con esos ids en HTML actual. No rompe el sitio, pero es deuda tecnica de mantenimiento.
-3. README.md esta minimo; podria resumir setup y deploy en GitHub Pages.
+Bloques funcionales:
 
-## 11. Pruebas manuales recomendadas antes de entregar cambios
+1. Traducciones locales (`briefTranslations`).
+2. Relleno dinamico de `select` segun idioma.
+3. Generacion de resumen (`generateSummary`).
+4. Construccion de enlace WhatsApp con texto codificado.
+5. Toast local de confirmacion.
+6. Recalculo automatico del resumen en cambios de formulario.
 
-1. Cargar la pagina y validar que no haya errores en consola.
-2. Cambiar idioma ES/EN y confirmar persistencia tras recargar.
-3. Abrir cada preview de proyecto y comprobar carga del iframe.
-4. Verificar comportamiento en movil (navbar, botones flotantes, cards).
-5. Verificar modal de perfil y cierre correcto.
+### 4.10 `style.css` y `login.css`
 
-## 12. Comandos de trabajo sugeridos
+`style.css`:
 
-No hay build step obligatorio. Flujo tipico:
+1. Sistema visual de `index.html` y componentes generales.
+2. Variables, animaciones, flip-cards, navbar, hero, botones flotantes.
 
-1. Abrir index.html con Live Server (VS Code) o navegador.
-2. Editar HTML/CSS/JS directamente.
-3. Probar en navegador desktop y mobile.
+`login.css`:
 
-## 13. Estado actual de continuidad
+1. Estilo de `login.html`.
+2. Tarjeta de acceso, tabs login/registro, inputs, botones y estado responsive.
 
-El proyecto es estable para continuar evolucionando UI, contenido y secciones. La arquitectura es simple, legible y apta para onboarding rapido de otro desarrollador.
+## 5. Modelo de datos actual en Firestore
 
-# 10. Posibles mejoras futuras
+### 5.1 Coleccion `users`
 
-Mejoras posibles:
+Documento: `users/{uid}`
 
--   formulario de contacto funcional
--   backend
--   base de datos
--   dark mode
--   SEO
--   lazy loading
--   animaciones avanzadas
--   despliegue en hosting
+Campos:
 
-------------------------------------------------------------------------
+1. `uid: string`
+2. `email: string | null`
+3. `displayName: string | null`
+4. `createdAt: timestamp`
+5. `updatedAt: timestamp`
+6. `lastLoginAt: timestamp`
 
-# 11. Cómo ejecutar el proyecto
+### 5.2 Coleccion `visits`
 
-No requiere instalación.
+Campos:
 
-Pasos:
+1. `uid`
+2. `email`
+3. `displayName`
+4. `page`
+5. `source`
+6. `userAgent`
+7. `createdAt`
 
-1.  Descargar el repositorio
-2.  Abrir:
+### 5.3 Coleccion `brief_events`
 
-```{=html}
-<!-- -->
-```
-    index.html
+Campos:
 
-en cualquier navegador.
+1. `uid`
+2. `email`
+3. `displayName`
+4. `page`
+5. `action` (actual: `generate_summary`)
+6. `summaryLength`
+7. `createdAt`
 
-Opcional:
+### 5.4 Coleccion `outbound_messages`
 
-Usar servidor local como:
+Campos:
 
-    Live Server (VSCode)
+1. `uid`
+2. `email`
+3. `displayName`
+4. `page`
+5. `channel` (actual: `whatsapp`)
+6. `contentLength`
+7. `createdAt`
+
+## 6. Flujo completo de sesion y tracking
+
+1. Usuario entra a `index.html` o `brief.html`.
+2. Guardia `requireAuth` valida sesion Firebase.
+3. Sin sesion: redirect a `login.html?next=...`.
+4. Con sesion: se registra visita y se renderiza pagina privada.
+5. En `brief.html`, ademas se registran eventos de generacion y envio.
+6. En login/registro exitoso, se actualiza perfil en `users`.
+
+## 7. Checklist operativo para mantenimiento
+
+1. Verificar que `firebase-config.js` tenga valores vigentes del proyecto.
+2. Revisar en Authentication que Email/Password este habilitado.
+3. Confirmar dominio de GitHub Pages en `Authorized domains`.
+4. Validar que Firestore este creando documentos en:
+   - `users`
+   - `visits`
+   - `brief_events`
+   - `outbound_messages`
+
+## 8. Riesgos y recomendaciones
+
+1. Actualmente las reglas de Firestore deben mantenerse seguras (escritura solo autenticados).
+2. La `apiKey` web no es secreta por diseño, pero reglas y dominios autorizados si son criticos.
+3. Si el proyecto migra a SQL gestionado, se requiere backend intermedio (no conectar SQL directo desde GitHub Pages).
+
+## 9. Estado final
+
+El proyecto ya cumple con:
+
+1. Inicio de sesion/registro conectado a Firebase.
+2. Persistencia de perfil de usuario.
+3. Registro de visitas y acciones clave del usuario.
+4. Documentacion tecnica de continuidad para otro desarrollador.

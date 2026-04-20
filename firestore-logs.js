@@ -11,6 +11,7 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
 
 export async function logVisit({ user = null, page = "", source = "web" } = {}) {
+  // Registro atomico de una visita autenticada.
   const visitPayload = {
     uid: user?.uid || null,
     email: user?.email || null,
@@ -30,6 +31,7 @@ export async function logOutboundMessage({
   channel = "",
   contentLength = 0
 } = {}) {
+  // Evento de salida a canal externo (ej: WhatsApp).
   const payload = {
     uid: user?.uid || null,
     email: user?.email || null,
@@ -49,6 +51,7 @@ export async function logBriefAction({
   summaryLength = 0,
   page = "brief"
 } = {}) {
+  // Eventos de embudo del brief (ej: generate_summary).
   const payload = {
     uid: user?.uid || null,
     email: user?.email || null,
