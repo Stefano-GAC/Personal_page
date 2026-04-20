@@ -23,3 +23,22 @@ export async function logVisit({ user = null, page = "", source = "web" } = {}) 
 
   await addDoc(collection(db, "visits"), visitPayload);
 }
+
+export async function logOutboundMessage({
+  user = null,
+  page = "",
+  channel = "",
+  contentLength = 0
+} = {}) {
+  const payload = {
+    uid: user?.uid || null,
+    email: user?.email || null,
+    displayName: user?.displayName || null,
+    page: page || window.location.pathname,
+    channel,
+    contentLength,
+    createdAt: serverTimestamp()
+  };
+
+  await addDoc(collection(db, "outbound_messages"), payload);
+}
