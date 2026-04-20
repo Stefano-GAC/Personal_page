@@ -3,7 +3,7 @@
 // ============================================================
 
 import { auth } from "./firebase-config.js";
-import { upsertUserProfile } from "./firestore-users.js";
+import { createUserProfile, upsertUserProfile } from "./firestore-users.js";
 import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
@@ -17,6 +17,7 @@ import {
 // ----------------------------------------------------------
 export async function login(email, password) {
   const userCredential = await signInWithEmailAndPassword(auth, email, password);
+  await upsertUserProfile(userCredential.user);
   return userCredential.user;
 }
 
@@ -28,7 +29,7 @@ export async function register(email, password, displayName = "") {
   if (displayName) {
     await updateProfile(userCredential.user, { displayName });
   }
-  await upsertUserProfile(userCredential.user);
+  await createUserProfile(userCredential.user);
   return userCredential.user;
 }
 

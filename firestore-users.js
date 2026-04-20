@@ -16,6 +16,23 @@ export async function upsertUserProfile(user) {
   }
 
   const userRef = doc(db, "users", user.uid);
+  const baseData = {
+    uid: user.uid,
+    email: user.email || null,
+    displayName: user.displayName || null,
+    lastLoginAt: serverTimestamp(),
+    updatedAt: serverTimestamp()
+  };
+
+  await setDoc(userRef, baseData, { merge: true });
+}
+
+export async function createUserProfile(user) {
+  if (!user?.uid) {
+    throw new Error("Usuario inválido para createUserProfile");
+  }
+
+  const userRef = doc(db, "users", user.uid);
   await setDoc(
     userRef,
     {
