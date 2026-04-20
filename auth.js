@@ -3,6 +3,7 @@
 // ============================================================
 
 import { auth } from "./firebase-config.js";
+import { upsertUserProfile } from "./firestore-users.js";
 import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
@@ -27,6 +28,7 @@ export async function register(email, password, displayName = "") {
   if (displayName) {
     await updateProfile(userCredential.user, { displayName });
   }
+  await upsertUserProfile(userCredential.user);
   return userCredential.user;
 }
 
